@@ -41,7 +41,18 @@
 | department_id | int          | 不空        | 所属部门id
 
 
-### 4.部门介绍表
+### 4.成员申请表
+------
+表名: intro_apply
+|字段名 | 类型 | 约束条件 | 说明|   
+|-------|------|----------|-----|   
+| id            | int          | 不重复，不空 |  自增id，作为主键
+| user_id       | int          | 不空         | 申请人id
+| department_id | int          | 不空         | 申请部门id  
+| apply_status  | enum         | 不空         | 申请状态  ('待审核', '已通过', '已拒绝')
+
+
+### 5.部门介绍表
 -------
 表名: intro_department
 
@@ -52,7 +63,7 @@
 | description   | text      | 不空        |   部门介绍
 
 
-### 5.招聘信息表
+### 6.招聘信息表
 --------
 表名: intro_job
 

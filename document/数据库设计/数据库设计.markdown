@@ -7,6 +7,7 @@
 | 研究成果表 | intro_achievement | 用于存放研究成果相关的内容 
 | 荣誉奖项表 | intro_award | 用于存放荣誉奖项相关的内容
 | 成员介绍表 | intro_member | 用于介绍实验室成员
+| 成员申请表 | intro_apply  | 申请加入部门信息
 | 部门分类表 | intro_department | 用于介绍实验室部门
 | 招聘信息表 | intro_job | 用于存放招聘信息
 
