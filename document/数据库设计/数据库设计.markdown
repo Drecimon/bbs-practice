@@ -30,22 +30,21 @@
 | 中文名  |表名| 描述|
 |--------|----|----|
 | 授权表 | user_auths | 与用户登陆认证有关的信息
-| 角色表 | user_role  | 存储用户所属角色(student, teacher, admin)
 | 信息表 | user_info  | 用户基本信息，如头像，昵称
-| 好友表 | user_friend | 用户好友
+| 角色权限表 | user_role  | 存储用户所属角色(student, teacher, admin)
 | 项目表 | user_project | 用户项目
 | 收藏表 | user_collection | 收藏资源
-| 信息表 | user_message | 交流信息
-| 帖子表 | user_post | 用户发帖
-| 关注表 | user_follow | 用户关注
+
 
 
 ### 日志管理模块 (log)
 -------
 | 中文名  |表名| 描述|
 |--------|----|----|
-| 登陆记录表 | log_login | 用户登陆记录
+| 访问记录表 | log_visit | 网站访问记录
+| 登录记录表 | log_login | 用户登录记录
 | 操作记录表 | log_operation | 用户操作记录
+| 详细操作表 | log_detail | 详细操作过程
 
 
 ### 内部论坛模块 (bbs)
@@ -55,6 +54,11 @@
 | 分区表 | bbs_part | 论坛分区板块
 | 主贴表 | bbs_post | 主帖
 | 回复表 | bbs_reply| 帖子回复
+| 关注表 | user_follow | 用户关注帖子
+| 好友表 | user_friend | 用户好友
+| 好友信息表 | user_message | 好友间的交流信息
+| 好友拉黑表 | user_ban | 用户拉黑的好友
+
 
 
 
