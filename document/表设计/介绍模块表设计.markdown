@@ -36,6 +36,7 @@
 |-------|------|----------|-----|   
 | id            | int          | 不重复，不空 |  自增id，作为主键
 | member_id     | int          | 不重复，不空 | 成员id
+| member_type   | enum         | 不空        | 成员类别 ('student', 'teacher')
 | member_name   | char(20)     | 不空        | 成员姓名
 | department_id | int          | 不空        | 所属部门id
 
