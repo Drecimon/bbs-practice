@@ -31,7 +31,7 @@
 |-------------    |--------------|-------------|-----|   
 | id              | int          | 不重复，不空 |  自增id，作为主键
 | user_id         | int          | 不空        | 用户id
-| role            | enum         | 不空        | 用户角色, ('student', 'teacher', 'admin')
+| role            | enum         | 不空        | 用户角色, ('student', 'teacher', 'admin', 'root')
 
 
 ### 4.项目表

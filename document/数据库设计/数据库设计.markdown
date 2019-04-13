@@ -32,7 +32,7 @@
 |--------|----|----|
 | 授权表 | user_auths | 与用户登陆认证有关的信息
 | 信息表 | user_info  | 用户基本信息，如头像，昵称
-| 角色权限表 | user_role  | 存储用户所属角色(student, teacher, admin)
+| 角色权限表 | user_role  | 存储用户所属角色(student, teacher, admin, root)
 | 项目表 | user_project | 用户项目
 | 收藏表 | user_collection | 收藏资源
 
