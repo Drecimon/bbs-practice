@@ -10,7 +10,7 @@
 | up_userid   | int          | 不空        | 上传者的用户ID
 | up_nickname | char(20)     | 不空        | 上传者的用户昵称
 | up_date     | datetime     | 不空        | 上传时间
-| visit_count | int          | 不空        | 访问数
+| visit_count | int          | 不空        | 访问数，默认为0
 
 
 ### 2.荣誉奖项表
