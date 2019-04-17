@@ -2,8 +2,11 @@ package cn.ljlin233.config;
 
 import java.util.List;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
@@ -27,15 +30,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * WebConfig
  */
-
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"cn.ljlin233.controller"})
+@ComponentScan(basePackages = {"cn.ljlin233.user.config"} , excludeFilters = {
+    @Filter(type = FilterType.ANNOTATION, value = MapperScan.class) })
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-
     }
 
     @Override
@@ -85,7 +87,6 @@ public class WebConfig implements WebMvcConfigurer {
         viewResolver.setSuffix(".jsp");
 
         registry.viewResolver(viewResolver);
-    
     }
 
     @Override
