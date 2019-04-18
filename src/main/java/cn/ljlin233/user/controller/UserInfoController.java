@@ -18,13 +18,15 @@ import cn.ljlin233.user.service.UserInfoService;
 public class UserInfoController {
 
     private UserInfoService userInfoService;
+    private UserInfo userInfo;
 
     public UserInfoController() {}
 
 
     @Autowired
-    public UserInfoController(UserInfoService userInfoService) {
+    public UserInfoController(UserInfoService userInfoService, UserInfo userInfo) {
         this.userInfoService = userInfoService;
+        this.userInfo = userInfo;
     }
 
     @RequestMapping(value = {"/user", "/user/"} , method = RequestMethod.GET)
@@ -34,10 +36,11 @@ public class UserInfoController {
 
 
     @RequestMapping(value = {"/user"}, params = {"id"}, method = RequestMethod.GET)
-    public String getUserInfo(@RequestParam int id) {
-        //UserInfo userInfo = userInfoService.getUserInfo(id);
+    @ResponseBody
+    public UserInfo getUserInfo(@RequestParam int id) {
+        userInfo = userInfoService.getUserInfo(id);
         //return Integer.toString(id);
-        return "index";
+        return userInfo;
     }
 
 }
