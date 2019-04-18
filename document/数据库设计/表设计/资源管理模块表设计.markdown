@@ -1,0 +1,27 @@
+### 1.资源表
+-------
+表名: res_resource
+
+|字段名        | 类型         | 约束条件    | 说明|   
+|-------------|--------------|-------------|-----|   
+| id          | int          | 不重复，不空 |  自增id，作为主键
+| title       | varchar(200) | 不空        | 资源的标题，考虑到可能为英文，最大长度为200
+| content     | text         |             | 资源简介，HTML代码
+| category    | enum         | 不空        | 资源类别 ('video', 'audio', 'image', 'document', 'rar')
+| up_userid   | int          | 不空        | 上传者的用户ID
+| up_nickname | char(20)     | 不空        | 上传者的用户昵称
+| up_date     | datetime     | 不空        | 上传时间
+| visit_count | int          | 不空        | 访问数
+| download_count |  int      | 不空        | 下载数
+| url          | varchar(200) | 不空       | 资源地址
+
+
+### 2.上传权限表
+---------
+表名: res_ban
+
+|字段名        | 类型         | 约束条件    | 说明|   
+|-------------|--------------|-------------|-----|   
+| id          | int          | 不重复，不空 |  自增id，作为主键
+| black_id    | int          | 不空        | 被禁止上传的用户id
+| add_id      | int          | 不空        | 添加的管理员id

@@ -1,0 +1,91 @@
+### 1.分区表
+表名: bbs_part
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| name            | char(20)     | 不空        | 分区名称
+| description     | varchar(100) |             | 简介
+| post_count      | int          | 非空        | 帖子总数
+
+
+### 2.主贴表
+表名: bbs_post
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| part_id         | int          | 不空         | 所属板块id
+| upper_id        | int          | 不空         | 发帖人id
+| upper_nickname  | char(20)     | 不空         | 发帖人昵称
+| title           | varchar(50)  | 不空         | 标题
+| post_time       | datetime     | 不空         | 发帖时间
+| visit_count     | int          | 不空         | 访问数
+| review_count    | int          | 不空         | 评论数
+| follow_count    | int          | 不空         | 关注数
+
+
+### 3.回复表
+表名: bbs_reply
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| type            | enum         | 不空        | 回复类型，跟帖还是楼中楼。 ( 'follow', 'reply')
+| post_id         | int          | 不空        | 主贴表的id，该回复所属帖子
+| reply_id        | int          | 不空        | 当回复为楼中楼时，为回复id，当为跟帖时，值为-1
+| user_id         | int          | 不空        | 回复人id
+| nickname        | char(20)     | 不空        | 回复人昵称
+| content         | varchar(200) | 不空        | 回复内容
+| reply_time      | datetime     | 不空        | 回复时间
+| good_count      | smallint     | 不空        | 点赞数
+| bad_count       | smallint     | 不空        | 踩数
+| reply_count     | smallint     | 不空        | 回复数          
+
+
+### 4.关注表
+表名: user_follow
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| user_id         | int          | 不空        | 用户id
+| post_id         | int          | 不空        | 关注的帖子id
+| follow_time     | datetime     | 不空        | 关注时间
+| latest_reply    | varchar(200) | 不空        | 最新回复
+| already_read    | tinyint      | 不空        | 是否阅读
+
+
+### 5.好友表
+表名: user_friend
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| user_id         | int          | 不空        | 用户id
+| friend_id       | int          | 不空        | 好友id  (此为强关系好友，user_id < friend_id )
+| add_time        | datetime     | 不空        | 添加时间
+
+
+### 6.好友信息表
+表名: user_message
+
+|字段名            | 类型          | 约束条件    | 说明|   
+|-------------    |-------------- |-------------|-----|   
+| id              | int           | 不重复，不空 |  自增id，作为主键
+| user_id         | int           | 不空        | 用户id
+| friend_id       | int           | 不空        | 好友id
+| content         | varchar(1000) | 不空        | 内容
+| send_time       | datetime      | 不空        | 交流时间
+
+
+
+### 7.好友拉黑表
+表名: user_ban
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| user_id         | int          | 不空        | 用户id
+| ban_id          | int          | 不空        | 拉黑id
+| ban_time        | datetime     | 不空        | 拉黑时间

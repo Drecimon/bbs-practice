@@ -1,0 +1,79 @@
+### 1.研究成果表 
+---------
+表名: intro_achievement 
+
+|字段名 | 类型 | 约束条件 | 说明|   
+|-------|------|----------|-----|   
+| id          | int          | 不重复，不空 |  自增id，作为主键
+| title       | varchar(200) | 不空        | 存储研究成果的标题，考虑到可能为英文，最大长度为200
+| content     | text         | 不空        | 存储文章内容，HTML代码
+| up_userid   | int          | 不空        | 上传者的用户ID
+| up_nickname | char(20)     | 不空        | 上传者的用户昵称
+| up_date     | datetime     | 不空        | 上传时间
+| visit_count | int          | 不空        | 访问数，默认为0
+
+
+### 2.荣誉奖项表
+-------
+表名: intro_award
+
+|字段名        | 类型         | 约束条件    | 说明|   
+|-------      |------        |----------   |-----|   
+| id          | int          | 不重复，不空 |  自增id，作为主键
+| title       | varchar(200) | 不空        | 存储荣誉奖项的标题，考虑到可能为英文，最大长度为200
+| content     | text         | 不空        | 存储文章内容，HTML代码
+| up_userid   | int          | 不空        | 上传者的用户ID
+| up_nickname | char(20)     | 不空        | 上传者的用户昵称
+| up_date     | datetime     | 不空        | 上传时间
+| visit_count | int          | 不空        | 访问数
+
+
+### 3.成员介绍表
+------
+表名: intro_member  
+
+|字段名 | 类型 | 约束条件 | 说明|   
+|-------|------|----------|-----|   
+| id            | int          | 不重复，不空 |  自增id，作为主键
+| member_id     | int          | 不重复，不空 | 成员id
+| member_type   | enum         | 不空        | 成员类别 ('student', 'teacher')
+| member_name   | char(20)     | 不空        | 成员姓名
+| department_id | int          | 不空        | 所属部门id
+
+
+### 4.成员申请表
+------
+表名: intro_apply
+
+|字段名 | 类型 | 约束条件 | 说明|   
+|-------|------|----------|-----|   
+| id            | int          | 不重复，不空 |  自增id，作为主键
+| user_id       | int          | 不空         | 申请人id
+| department_id | int          | 不空         | 申请部门id  
+| apply_status  | enum         | 不空         | 申请状态  ('待审核', '已通过', '已拒绝')
+
+
+### 5.部门介绍表
+-------
+表名: intro_department
+
+|字段名 | 类型 | 约束条件 | 说明|   
+|-------|------|----------|-----|  
+| tinyid        | int       | 不重复，不空 |  自增id，作为主键
+| name          | char(20)  | 不重复，不空 |  部门名称
+| description   | text      | 不空        |   部门介绍
+
+
+### 6.招聘信息表
+--------
+表名: intro_job
+
+|字段名        | 类型         | 约束条件    | 说明|   
+|-------      |------        |----------   |-----|   
+| id          | int          | 不重复，不空 |  自增id，作为主键
+| title       | varchar(200) | 不空        | 存储招聘标题，考虑到可能为英文，最大长度为200
+| content     | text         | 不空        | 存储文章内容，HTML代码
+| up_userid   | int          | 不空        | 上传者的用户ID
+| up_nickname | char(20)     | 不空        | 上传者的用户昵称
+| up_date     | datetime     | 不空        | 上传时间
+| visit_count | int          | 不空        | 访问数

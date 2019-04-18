@@ -1,0 +1,50 @@
+### 1.访问记录表
+表名: log_visit
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| is_login        | tinyint      | 不空        | 判断是否登陆
+| user_id         | int          | 不空        | 访问者的用户id，未登陆为-1
+| ip_address      | int(10)      | 不空        | 访问者的ip地址
+| browser         | varchar(100) | 不空        | 浏览器信息
+| visit_time      | datetime     | 不空        | 访问时间
+
+
+### 2.登录记录表
+表名: log_visit
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| login_type      | enum         | 不空        | 登录方式 ('account', 'email', 'phone')
+| user_id         | int          | 不空        | 用户id
+| login_ip        | int(10)      | 不空        | 登录ip地址  
+| login_time      | datetime     | 不空        | 登录时间          
+
+
+### 3.操作记录表
+表名: log_operation
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| user_id         | int          | 不空        | 操作用户id
+| opera_time      | datetime     | 不空        | 操作时间
+| opera_type      | enum         | 不空        | 操作类型 ('add', 'delete', 'modify')
+| opera_id        | int          | 不空        | 详细操作过程id
+
+
+### 4.详细操作表
+表名: log_detail
+
+|字段名            | 类型         | 约束条件    | 说明|   
+|-------------    |--------------|-------------|-----|   
+| id              | int          | 不重复，不空 |  自增id，作为主键
+| opera_table     | char(20)     | 不空        | 修改的表
+| opera_col       | char(20)     | 不空        | 修改的列
+| opera_row       | int          | 不空        | 修改的行id
+| old_value       | text         |             | 旧值
+| new_value       | text         |             | 新值
+
+
