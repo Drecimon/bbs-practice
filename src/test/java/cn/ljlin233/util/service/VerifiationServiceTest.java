@@ -1,5 +1,6 @@
 package cn.ljlin233.util.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -17,20 +18,23 @@ import cn.ljlin233.util.entity.Verification;
  * VerifiationServiceTest
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {RootConfig.class, WebConfig.class})
+@ContextConfiguration(classes = { RootConfig.class, WebConfig.class })
 @WebAppConfiguration
 public class VerifiationServiceTest {
 
     @Autowired
     private VerificationService verificationService;
 
-
     @Test
     public void testVerficationService() {
         Verification verification = verificationService.getVerification();
         String verId = verification.getVerificationId();
-        assertNotNull(verId);
-
+        String verCode = verificationService.getVerificationCode(verId);
+        boolean result = verificationService.checkVerification(verId, verCode);
+        
+        assertEquals(true, result);
+        
     }
+
 
 }

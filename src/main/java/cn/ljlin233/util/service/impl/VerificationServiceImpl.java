@@ -1,6 +1,7 @@
 package cn.ljlin233.util.service.impl;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +14,7 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.ljlin233.util.dao.VerificationDao;
 import cn.ljlin233.util.entity.Verification;
@@ -24,15 +26,17 @@ import cn.ljlin233.util.service.VerificationService;
 @Service
 public class VerificationServiceImpl implements VerificationService {
 
-    private int width = 70;
+    private int width = 120;
 
-    private int height = 35;
+    private int height = 60;
 
     private Random random = new Random();
 
     private String codes = "0123456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ";
 
     private Color bgColor = new Color(255, 255, 255);
+
+    private Font font = new Font(null, Font.PLAIN, 60-10);
 
     private VerificationDao verificationDao;
 
@@ -69,9 +73,17 @@ public class VerificationServiceImpl implements VerificationService {
     @Override
     public boolean checkVerification(String verId, String verCode) {
 
+        if (verId == null || verCode == null || verCode.length() != 4) {
+            return false;
+        }
+
         String verCode2 = verificationDao.getVerificationCode(verId);
 
-        if (verCode.compareTo(verCode2) == 0) {
+        if (verCode2 == null) {
+            return false;
+        }
+
+        if (verCode.compareToIgnoreCase(verCode2) == 0) {
             return true;
         }
 
@@ -91,6 +103,7 @@ public class VerificationServiceImpl implements VerificationService {
 
             int x = i * width / 4;
             g.setColor(getRandomColor());
+            g.setFont(font);
             g.drawString(String.valueOf(c), x, height - 5);
         }
 
@@ -137,7 +150,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     private void drawLine(BufferedImage image) {
-        int lineNums = 18;
+        int lineNums = 60;
         Graphics g = image.getGraphics();
         for (int i = 0; i < lineNums; i++) {
             int x1 = random.nextInt(width);
