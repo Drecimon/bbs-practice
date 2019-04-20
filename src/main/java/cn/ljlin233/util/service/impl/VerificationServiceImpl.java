@@ -14,7 +14,6 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import cn.ljlin233.util.dao.VerificationDao;
 import cn.ljlin233.util.entity.Verification;
