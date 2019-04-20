@@ -5,8 +5,8 @@ package cn.ljlin233.config;
  */
 public final class ConfigParameters {
 
-    public static String mysqlUsername = "root";
+    public static String mysqlUsername = "****";
 
-    public static String mysqlPassword = "ljldmysql.";
+    public static String mysqlPassword = "****";
     
 }
