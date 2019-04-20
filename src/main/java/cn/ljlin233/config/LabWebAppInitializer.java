@@ -12,7 +12,7 @@ public class LabWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[] {RootConfig.class};
     }
-
+    
     // SpringMVCApplicationContext
     @Override
     protected Class<?>[] getServletConfigClasses() {
