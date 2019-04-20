@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import cn.ljlin233.config.ConfigParameters;
 /**
  * DataSourceConfig
  */
@@ -19,8 +20,8 @@ public class DataSourceConfig {
         try {
             ds.setDriverClass("com.mysql.cj.jdbc.Driver");
             ds.setJdbcUrl("jdbc:mysql://localhost:3306/hdu_laboratory?serverTimezone=GMT%2B8");
-            ds.setUser("root");
-            ds.setPassword("ljldmysql.");
+            ds.setUser(ConfigParameters.mysqlUsername);
+            ds.setPassword(ConfigParameters.mysqlPassword);
             ds.setInitialPoolSize(3);
             ds.setMaxPoolSize(10);
             ds.setMinPoolSize(3);

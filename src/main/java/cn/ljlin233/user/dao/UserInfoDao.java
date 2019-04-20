@@ -1,5 +1,6 @@
 package cn.ljlin233.user.dao;
 
+import java.util.Date;
 import java.util.List;
 import cn.ljlin233.user.entity.UserInfo;
 
@@ -8,9 +9,11 @@ import cn.ljlin233.user.entity.UserInfo;
  */
 public interface UserInfoDao {
 
-    public void addUser();
-    public void deleteUser();
-    public void modifyUser();
+    public void addUserInfo(String account, String email, String phone, String nickname, String introduce,
+        Date register_time, String profile_picture);
+    public void deleteUserInfo();
+    public void modifyUserInfo();
     public List<UserInfo> getAllUserInfo();
     public UserInfo getUserInfoById(int id);
+    
 }
