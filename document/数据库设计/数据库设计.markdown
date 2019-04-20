@@ -35,7 +35,7 @@
 | 角色权限表 | user_role  | 存储用户所属角色(student, teacher, admin, root)
 | 项目表 | user_project | 用户项目
 | 收藏表 | user_collection | 收藏资源
-
+| 用户起源表 | user_origin | 可注册用户账户名单
 
 
 ### 日志管理模块 (log)
