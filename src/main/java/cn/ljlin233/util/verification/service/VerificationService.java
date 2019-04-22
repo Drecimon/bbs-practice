@@ -1,8 +1,8 @@
-package cn.ljlin233.util.service;
+package cn.ljlin233.util.verification.service;
 
 import java.awt.image.BufferedImage;
 
-import cn.ljlin233.util.entity.Verification;
+import cn.ljlin233.util.verification.entity.Verification;
 
 /**
  * VerificationService

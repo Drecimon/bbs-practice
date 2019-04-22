@@ -9,7 +9,7 @@ import cn.ljlin233.user.dao.UserAuthsDao;
 import cn.ljlin233.user.dao.UserInfoDao;
 import cn.ljlin233.user.dao.UserRoleDao;
 import cn.ljlin233.user.service.UserRegisterService;
-import cn.ljlin233.util.service.VerificationService;
+import cn.ljlin233.util.verification.service.VerificationService;
 
 /**
  * UserRegisterServiceImpl
@@ -40,7 +40,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     public void registerUser(String account, String password, String role, String email, 
         String VerificationId, String VerificationCode) {
 
-        if (!checkVerification(VerificationId, VerificationCode)) {
+        if (!verificationService.checkVerification(VerificationId, VerificationCode)) {
             return;
         }
 
@@ -49,11 +49,11 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
             userInfoDao.addUserInfo(account, email, null, null, null, register_time, null);
 
-            int user_id = 0;
+            int user_id = userInfoDao.getUserIdByAccount(account);
             userAuthsDao.addUserAuths(user_id, "account", account, password);
             userAuthsDao.addUserAuths(user_id, "email", email, password);
+            userRoleDao.addUserRole(user_id, role);
 
-            userRoleDao.addUserRole(user_id, role);            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,10 +61,4 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     }
 
     
-    private boolean checkVerification(String VerificationId, String VerificationCode) {
-        boolean result = false;
-        result =  verificationService.checkVerification(VerificationId, VerificationCode);
-        return result;
-    }
-
 }

@@ -29,7 +29,7 @@ public class UserInfoController {
         this.userInfo = userInfo;
     }
 
-    @RequestMapping(value = {"/user", "/user/"} , method = RequestMethod.GET)
+    @RequestMapping(value = {"/user"} , method = RequestMethod.GET)
     public String getAllUserInfo() {
         return "ALL";
     }

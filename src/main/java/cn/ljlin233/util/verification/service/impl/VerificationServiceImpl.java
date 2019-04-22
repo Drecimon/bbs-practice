@@ -1,4 +1,4 @@
-package cn.ljlin233.util.service.impl;
+package cn.ljlin233.util.verification.service.impl;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,9 +15,9 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.ljlin233.util.dao.VerificationDao;
-import cn.ljlin233.util.entity.Verification;
-import cn.ljlin233.util.service.VerificationService;
+import cn.ljlin233.util.verification.dao.VerificationDao;
+import cn.ljlin233.util.verification.entity.Verification;
+import cn.ljlin233.util.verification.service.VerificationService;
 
 /**
  * VerificationServiceImpl

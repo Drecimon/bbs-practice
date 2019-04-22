@@ -1,4 +1,4 @@
-package cn.ljlin233.util.entity;
+package cn.ljlin233.util.verification.entity;
 
 import org.springframework.stereotype.Component;
 

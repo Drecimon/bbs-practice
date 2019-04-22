@@ -1,4 +1,4 @@
-package cn.ljlin233.util.service;
+package cn.ljlin233.util.verification.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
-import cn.ljlin233.util.entity.Verification;
+import cn.ljlin233.util.verification.entity.Verification;
 
 /**
  * VerifiationServiceTest
