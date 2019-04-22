@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -38,13 +37,13 @@ public class UserInfoServiceTest {
         System.out.println(1);
     }
     
-    public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext2 = new AnnotationConfigApplicationContext(RootConfig.class);
-        String[] definitionNames = applicationContext2.getBeanDefinitionNames();
-        for (String name : definitionNames) {
-            System.out.println(name);
-        }
-    }
+    // public static void main(String[] args) {
+    //     AnnotationConfigApplicationContext applicationContext2 = new AnnotationConfigApplicationContext(RootConfig.class);
+    //     String[] definitionNames = applicationContext2.getBeanDefinitionNames();
+    //     for (String name : definitionNames) {
+    //         System.out.println(name);
+    //     }
+    // }
 
 
 }

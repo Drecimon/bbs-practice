@@ -2,7 +2,6 @@ package cn.ljlin233.util.dao;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.xml.crypto.KeySelector.Purpose;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
