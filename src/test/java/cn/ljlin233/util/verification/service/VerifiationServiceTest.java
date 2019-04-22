@@ -12,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
+import cn.ljlin233.util.verification.dao.VerificationDao;
 import cn.ljlin233.util.verification.entity.Verification;
 
 /**
@@ -25,13 +26,21 @@ public class VerifiationServiceTest {
     @Autowired
     private VerificationService verificationService;
 
+    @Autowired
+    private VerificationDao verificationDao;
+
     @Test
     public void testVerficationService() {
         Verification verification = verificationService.getVerification();
 
-        assertNotNull(verification.getVerificationId());
-        assertNotNull(verification.getVerificationImage());
-        
+        String verId = verification.getVerificationId();
+        String verImage = verification.getVerificationImage();
+        String verCode = verificationDao.getVerificationCode(verId);
+
+        assertNotNull(verId);
+        assertNotNull(verImage);
+        assertNotNull(verCode);
+
     }
 
 
