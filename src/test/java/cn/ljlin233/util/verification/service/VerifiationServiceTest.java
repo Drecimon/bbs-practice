@@ -1,6 +1,7 @@
 package cn.ljlin233.util.verification.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,11 +28,9 @@ public class VerifiationServiceTest {
     @Test
     public void testVerficationService() {
         Verification verification = verificationService.getVerification();
-        String verId = verification.getVerificationId();
-        String verCode = verificationService.getVerificationCode(verId);
-        boolean result = verificationService.checkVerification(verId, verCode);
-        
-        assertEquals(true, result);
+
+        assertNotNull(verification.getVerificationId());
+        assertNotNull(verification.getVerificationImage());
         
     }
 
