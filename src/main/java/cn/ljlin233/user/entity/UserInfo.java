@@ -1,6 +1,5 @@
 package cn.ljlin233.user.entity;
 
-import java.util.Date;
 
 import org.springframework.stereotype.Component;
 

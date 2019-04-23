@@ -1,6 +1,5 @@
 package cn.ljlin233.user.dao;
 
-import java.util.Date;
 import java.util.List;
 import cn.ljlin233.user.entity.UserInfo;
 
