@@ -1,4 +1,4 @@
-package cn.ljlin233.util.dao;
+package cn.ljlin233.util.verification.dao;
 
 /**
  * VerificationDao

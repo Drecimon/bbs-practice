@@ -1,6 +1,5 @@
 package cn.ljlin233.user.dao.impl;
 
-import org.apache.ibatis.annotations.Select;
 
 import cn.ljlin233.user.dao.UserRoleDao;
 

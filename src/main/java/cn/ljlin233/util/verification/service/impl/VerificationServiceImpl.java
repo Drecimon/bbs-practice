@@ -1,4 +1,4 @@
-package cn.ljlin233.util.service.impl;
+package cn.ljlin233.util.verification.service.impl;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,9 +15,9 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.ljlin233.util.dao.VerificationDao;
-import cn.ljlin233.util.entity.Verification;
-import cn.ljlin233.util.service.VerificationService;
+import cn.ljlin233.util.verification.dao.VerificationDao;
+import cn.ljlin233.util.verification.entity.Verification;
+import cn.ljlin233.util.verification.service.VerificationService;
 
 /**
  * VerificationServiceImpl
@@ -48,26 +48,31 @@ public class VerificationServiceImpl implements VerificationService {
         this.verificationDao = verificationDao;
     }
 
-    @Override
-    public String getVerificationId() {
-        String verId = UUID.randomUUID().toString().replace("-", "");
-        return verId;
-    }
 
     @Override
-    public String getVerificationCode(String verId) {
-        StringBuilder sb = new StringBuilder();
+    public Verification getVerification() {
+        String verId = getVerificationId();
+        String verCode = getVerificationCode();
 
-        for (int i = 0; i < 4; i++) {
-            char c = getRandomChar();
-            sb.append(c);
-        }
-
-        String verCode = sb.toString();
         verificationDao.addVerification(verId, verCode);
 
-        return verCode;
+        BufferedImage verImage = getVerificationImage(verCode);
+        // image to base64
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        String imageBase64 = "";
+
+        try {
+            ImageIO.write(verImage, "jpg", outputStream);
+            imageBase64 = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+            
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();            
+        }
+        
+        return new Verification(verId, imageBase64);
     }
+
 
     @Override
     public boolean checkVerification(String verId, String verCode) {
@@ -89,8 +94,26 @@ public class VerificationServiceImpl implements VerificationService {
         return false;
     }
 
-    @Override
-    public BufferedImage getVerificationImage(String verCode) {
+    private String getVerificationId() {
+        String verId = UUID.randomUUID().toString().replace("-", "");
+        return verId;
+    }
+
+
+    private String getVerificationCode() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) {
+            char c = getRandomChar();
+            sb.append(c);
+        }
+
+        String verCode = sb.toString();
+        return verCode;
+    }
+
+
+    private BufferedImage getVerificationImage(String verCode) {
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics g = image.getGraphics();
@@ -110,31 +133,6 @@ public class VerificationServiceImpl implements VerificationService {
 
         return image;
     }
-
-
-    @Override
-    public Verification getVerification() {
-        String verId = getVerificationId();
-        String verCode = getVerificationCode(verId);
-        BufferedImage verImage = getVerificationImage(verCode);
-        // image to base64
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        String imageBase64 = "";
-
-        try {
-            ImageIO.write(verImage, "jpg", outputStream);
-            imageBase64 = Base64.getEncoder().encodeToString(outputStream.toByteArray());
-            
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();            
-        }
-        
-        return new Verification(verId, imageBase64);
-    }
-
-
-
 
     private Color getRandomColor() {
         int red = random.nextInt(150);

@@ -1,5 +1,7 @@
 package cn.ljlin233.config;
 
+import javax.servlet.ServletRegistration.Dynamic;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -22,6 +24,14 @@ public class LabWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
     @Override
     protected String[] getServletMappings() {
         return new String[] {"/"};
+    }
+
+
+    @Override
+    protected void customizeRegistration(Dynamic registration) {
+            
+        registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+
     }
 
 }

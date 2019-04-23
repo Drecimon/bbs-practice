@@ -50,7 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 
-        configurer.enable();
+        //configurer.enable();
     }
 
     @Override
@@ -114,7 +114,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-
+        
     }
 
     @Override

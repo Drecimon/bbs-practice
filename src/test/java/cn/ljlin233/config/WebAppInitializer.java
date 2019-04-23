@@ -1,4 +1,4 @@
-package cn.ljlin233.introduce.controller;
+package cn.ljlin233.config;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,32 +13,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import cn.ljlin233.config.RootConfig;
-/**
- * HomeControllerTest
- */
+
 import cn.ljlin233.config.WebConfig;
+
+/**
+ * WebAppInitializer
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RootConfig.class, WebConfig.class})
 @WebAppConfiguration
-public class HomeControllerTest {
+public class WebAppInitializer {
 
-    @Autowired
-    private HomeController homeController;
 
     @Test
-    public void testHomeController() {
-        assertNotNull(homeController);
+    public void show() {
+        LabWebAppInitializer lab = new LabWebAppInitializer();
+        //lab.customizeRegistration(registration);
     }
-
-    @Test
-    public void testUserInfo() throws Exception{
-
-        HomeController controller = new HomeController();
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
-        mockMvc.perform(get("/"))
-               .andExpect(view().name("index"));
-
-    }
-
+    
 }

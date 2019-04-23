@@ -1,4 +1,4 @@
-package cn.ljlin233.util.dao.impl;
+package cn.ljlin233.util.verification.dao.impl;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.ljlin233.util.dao.VerificationDao;
+import cn.ljlin233.util.verification.dao.VerificationDao;
 
 /**
  * VerificationDaoImpl

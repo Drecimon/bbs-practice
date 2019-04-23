@@ -31,4 +31,6 @@ public interface UserInfoDaoMapper extends UserInfoDao {
     @Select("select * from user_info where id = #{id}")
     public UserInfo getUserInfoById(int id);
     
+    @Override
+    public int getUserIdByAccount(String account);
 }

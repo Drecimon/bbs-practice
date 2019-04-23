@@ -1,6 +1,5 @@
 package cn.ljlin233.user.service;
 
-import java.util.Date;
 
 /**
  * UserRegisterService

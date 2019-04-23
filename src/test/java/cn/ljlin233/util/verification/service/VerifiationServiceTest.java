@@ -1,4 +1,4 @@
-package cn.ljlin233.util.service;
+package cn.ljlin233.util.verification.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +12,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
-import cn.ljlin233.util.entity.Verification;
+import cn.ljlin233.util.verification.dao.VerificationDao;
+import cn.ljlin233.util.verification.entity.Verification;
 
 /**
  * VerifiationServiceTest
@@ -25,15 +26,21 @@ public class VerifiationServiceTest {
     @Autowired
     private VerificationService verificationService;
 
+    @Autowired
+    private VerificationDao verificationDao;
+
     @Test
     public void testVerficationService() {
         Verification verification = verificationService.getVerification();
+
         String verId = verification.getVerificationId();
-        String verCode = verificationService.getVerificationCode(verId);
-        boolean result = verificationService.checkVerification(verId, verCode);
-        
-        assertEquals(true, result);
-        
+        String verImage = verification.getVerificationImage();
+        String verCode = verificationDao.getVerificationCode(verId);
+
+        assertNotNull(verId);
+        assertNotNull(verImage);
+        assertNotNull(verCode);
+
     }
 
 
