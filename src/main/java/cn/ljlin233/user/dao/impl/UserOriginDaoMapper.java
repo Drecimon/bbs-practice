@@ -16,8 +16,12 @@ public interface UserOriginDaoMapper extends UserOriginDao {
     public void deleteUserOrigin(String account);
 
     @Override
-    @Select("select id from user_origin where account = #{account}")
-    public int getUserOriginId(String account);
+    @Select("select id from user_origin where account = #{account} limit 1")
+    public Integer getUserOriginId(String account);
 
-    
+    @Override
+    @Select("select count(1) from user_origin where account = #{account} limit 1")    
+    public int existsAccount(String account);
+
+
 }

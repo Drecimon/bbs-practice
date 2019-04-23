@@ -5,7 +5,7 @@ package cn.ljlin233.user.dao;
  */
 public interface UserRoleDao {
 
-    void addUserRole(int user_id, String role);
+    void addUserRole(int userId, String role);
     
     void deleteUserRole();
 

@@ -22,5 +22,10 @@ public class UserToken {
         this.userId = userId;
         this.userToken = userToken;
     }
+
+    @Override
+    public String toString() {
+        return "UserToken [userId=" + userId + ", userToken=" + userToken + "]";
+    }
     
 }

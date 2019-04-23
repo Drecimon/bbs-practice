@@ -5,15 +5,17 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import cn.ljlin233.config.ConfigParameters;
 /**
  * DataSourceConfig
  */
 @Configuration
+@EnableTransactionManagement
 public class DataSourceConfig {
 
-    
     @Bean
     public ComboPooledDataSource dataSource() {
         ComboPooledDataSource ds = new ComboPooledDataSource();
@@ -44,6 +46,13 @@ public class DataSourceConfig {
     }
 
 
+    // 事务
+    @Bean
+    public DataSourceTransactionManager transactionManager(ComboPooledDataSource dataSource) {
+        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+        dataSourceTransactionManager.setDataSource(dataSource);
 
+        return dataSourceTransactionManager;
+    }
 
 }

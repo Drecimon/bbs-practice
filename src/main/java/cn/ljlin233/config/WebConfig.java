@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.context.annotation.FilterType;
 
 /**
  * WebConfig
@@ -30,7 +33,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 // controllers, ViewResolver, HandlerMapping
-@ComponentScan(basePackages = {"cn.ljlin233.**.controller"})
+@ComponentScan(basePackages = {"cn.ljlin233"}, includeFilters = {
+    @Filter(type = FilterType.ANNOTATION, value = Controller.class)
+}, useDefaultFilters = false)
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

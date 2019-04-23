@@ -29,11 +29,8 @@ public class UserOriginServiceImpl implements UserOriginService {
 
     @Override
     public boolean checkUserOrigin(String account) {
-        int id = userOriginDao.getUserOriginId(account);
-        if (id > 0) {
-            return true;
-        }
-        return false;
+        int count = userOriginDao.existsAccount(account);
+        return count != 0;
     }
 
     @Override

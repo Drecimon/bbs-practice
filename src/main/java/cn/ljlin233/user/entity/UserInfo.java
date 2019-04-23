@@ -21,7 +21,7 @@ public class UserInfo {
     private String phone;
     private String nickname;
     private String introduction;
-    private Date registerTime;
+    private String registerTime;
     private String profilePicture;
     private int isban;
     
@@ -30,7 +30,7 @@ public class UserInfo {
 
 
     public UserInfo (int id, String account, String email, String phone, String nickname, 
-        String introduction, Date registerTime, String profilePicture, int isban) {
+        String introduction, String registerTime, String profilePicture, int isban) {
         
         this.id = id;
         this.account = account;
@@ -44,10 +44,16 @@ public class UserInfo {
 
     }
 
+
+    // public void setRegisterTime(String registerTime) {
+
+    // }
+
     @Override
     public String toString() {
-
-        return "id=" + this.id + " account=" + this.account +" email=" + this.email;
+        return "UserInfo [account=" + account + ", email=" + email + ", id=" + id + ", introduction=" + introduction
+                + ", isban=" + isban + ", nickname=" + nickname + ", phone=" + phone + ", profilePicture="
+                + profilePicture + ", registerTime=" + registerTime + "]";
     }
     
 }

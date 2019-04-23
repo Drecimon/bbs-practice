@@ -5,7 +5,8 @@ package cn.ljlin233.user.dao;
  */
 public interface UserAuthsDao {
 
-    void addUserAuths(int user_id, String identity_type, String identifier, String credential);
+    
+    void addUserAuths(int userId, String identityType, String identifier, String credential);
 
     void deleteAuths();
 

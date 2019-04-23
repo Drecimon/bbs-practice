@@ -1,6 +1,9 @@
 package cn.ljlin233.user.dao.impl;
 
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+
 import cn.ljlin233.user.dao.UserRoleDao;
 
 /**
@@ -9,7 +12,8 @@ import cn.ljlin233.user.dao.UserRoleDao;
 public interface UserRoleDaoMapper extends UserRoleDao {
 
     @Override
-    public void addUserRole(int user_id, String role);
+    @Insert("insert into user_role (user_id, role) values (#{userId}, #{role})")
+    public void addUserRole(@Param("userId") int userId, @Param("role") String role);
     
     @Override
     public void deleteUserRole();

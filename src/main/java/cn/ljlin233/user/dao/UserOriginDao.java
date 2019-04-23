@@ -10,6 +10,7 @@ public interface UserOriginDao {
 
     void deleteUserOrigin(String account);
 
-    int getUserOriginId(String account);
+    Integer getUserOriginId(String account);
 
+    public int existsAccount(String account);
 }

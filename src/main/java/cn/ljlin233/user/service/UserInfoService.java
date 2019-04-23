@@ -9,4 +9,8 @@ public interface UserInfoService {
 
     public UserInfo getUserInfo(int id);
 
+    public boolean existsAccount();
+
+    public boolean existsEmail();
+
 }

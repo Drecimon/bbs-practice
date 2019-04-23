@@ -9,8 +9,7 @@ import cn.ljlin233.user.entity.UserInfo;
  */
 public interface UserInfoDao {
 
-    public void addUserInfo(String account, String email, String phone, String nickname, String introduce,
-        Date register_time, String profile_picture);
+    public void addUserInfo(String account, String email, String registerTime);;
 
     public void deleteUserInfo();
 
@@ -21,4 +20,10 @@ public interface UserInfoDao {
     public UserInfo getUserInfoById(int id);
     
     public int getUserIdByAccount(String account);
+
+    public int existsAccount(String account);
+
+    public int existsEmail(String email);
+
+    public int existsPhone(String phone);
 }

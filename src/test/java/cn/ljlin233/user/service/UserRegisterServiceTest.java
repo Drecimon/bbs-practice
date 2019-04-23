@@ -1,4 +1,4 @@
-package cn.ljlin233.util.verification.service;
+package cn.ljlin233.user.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,14 +14,18 @@ import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
 import cn.ljlin233.util.verification.dao.VerificationDao;
 import cn.ljlin233.util.verification.entity.Verification;
-
+import cn.ljlin233.util.verification.service.VerificationService;
 /**
- * VerifiationServiceTest
+ * UserRegisterServiceTest
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { RootConfig.class, WebConfig.class })
+@ContextConfiguration(classes = {RootConfig.class, WebConfig.class})
 @WebAppConfiguration
-public class VerifiationServiceTest {
+public class UserRegisterServiceTest {
+
+
+    @Autowired
+    private UserRegisterService userRegisterService;
 
     @Autowired
     private VerificationService verificationService;
@@ -30,18 +34,13 @@ public class VerifiationServiceTest {
     private VerificationDao verificationDao;
 
     @Test
-    public void testVerficationService() {
-        Verification verification = verificationService.getVerification();
+    public void testRegister() {
 
+        Verification verification = verificationService.getVerification();
         String verId = verification.getVerificationId();
-        String verImage = verification.getVerificationImage();
         String verCode = verificationDao.getVerificationCode(verId);
 
-        assertNotNull(verId);
-        assertNotNull(verImage);
-        assertNotNull(verCode);
-        //assertEquals("1", verId);
+        //userRegisterService.registerUser("5", "123", "student", "email@123.com", verId, verCode);
     }
-
-
+    
 }

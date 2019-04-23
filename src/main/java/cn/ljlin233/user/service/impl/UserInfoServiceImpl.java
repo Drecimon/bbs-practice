@@ -31,4 +31,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfo;
     }
 
+    @Override
+    public boolean existsAccount() {
+        return false;
+    }
+
+    @Override
+    public boolean existsEmail() {
+        return false;
+    }
+
 }
