@@ -2,12 +2,26 @@ create database if not exists hdu_laboratory default character set utf8mb4;
 use hdu_laboratory;
 
 -- 用户模块
+-- 原始用户信息表
+drop table if exists user_origin;
+create table if not exists user_origin (
+    `id` int not null auto_increment,
+    `account` char(10) not null,
+    PRIMARY KEY (`id`),
+    unique key (`account`)
+);
+insert into user_origin (account) values ('1');
+insert into user_origin (account) values ('2');
+insert into user_origin (account) values ('3');
+insert into user_origin (account) values ('4');
+insert into user_origin (account) values ('5');
+
 -- 用户信息表
 drop table if exists user_info;
 create table if not exists user_info (
 
     `id` int not null auto_increment,
-    `account` int,
+    `account` char(10) not null,
     `email` char(30) not null,
     `phone` char(13),
     `nickname` char(20) not null default 'noone',
@@ -21,10 +35,10 @@ create table if not exists user_info (
     unique key (`phone`)
 );
 -- 插入测试数据
-insert into user_info (account, email, phone, register_time) values (1, '123@qq.com', '123451', now());
-insert into user_info (account, email, phone, register_time) values (2, '124@qq.com', '123452', now());
-insert into user_info (account, email, phone, register_time) values (3, '125@qq.com', '123453', now());                
-insert into user_info (email, register_time) values ('126@qq.com', now()); 
+insert into user_info (account, email, phone, register_time) values ('1', '123@qq.com', '123451', now());
+insert into user_info (account, email, phone, register_time) values ('2', '124@qq.com', '123452', now());
+insert into user_info (account, email, phone, register_time) values ('3', '125@qq.com', '123453', now());                
+insert into user_info (account, email, register_time) values ('4', '126@qq.com', now()); 
 
 -- 用户授权表
 drop table if exists user_auths;
