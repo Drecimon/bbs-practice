@@ -51,7 +51,7 @@ create table if not exists user_auths(
     `user_id` int not null,
     `identity_type` enum('account', 'email', 'phone') not null,
     `identifier` varchar(30) not null,
-    `credential` varchar(20) not null,
+    `credential` char(32) not null,
     PRIMARY KEY (`id`)
 );
 -- 插入测试数据

@@ -7,7 +7,7 @@
 | user_id       | int          | 不空        | 用户id，用户信息表的主键
 | identity_type | enum         | 不空        | 登陆账户类型, ('account', 'phone', 'email')
 | identifier    | varchar(30)  | 不空        | 登陆账号
-| credential    | varchar(20)  | 不空        | 登陆凭证(密码)
+| credential    | char(32)  | 不空        | 登陆凭证(密码)
 
 
 ### 2.信息表
