@@ -43,5 +43,4 @@ public class VerifiationServiceTest {
         //assertEquals("1", verId);
     }
 
-
 }

@@ -17,11 +17,14 @@ public class ExceptionResponse {
 
     private String message;
 
+    private String error;
+
     public ExceptionResponse() {};
 
-    public ExceptionResponse(String code, String message) {
+    public ExceptionResponse(String code, String message, String error) {
         this.code = code;
         this.message = message;
+        this.error = error;
     }
     
 }

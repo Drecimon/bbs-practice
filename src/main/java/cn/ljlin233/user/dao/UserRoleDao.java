@@ -7,6 +7,6 @@ public interface UserRoleDao {
 
     void addUserRole(int userId, String role);
     
-    void deleteUserRole();
+    void deleteUserRole(int userId);
 
 }

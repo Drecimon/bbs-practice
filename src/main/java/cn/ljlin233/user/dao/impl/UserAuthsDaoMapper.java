@@ -1,5 +1,6 @@
 package cn.ljlin233.user.dao.impl;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,8 @@ public interface UserAuthsDaoMapper extends UserAuthsDao {
 
 
     @Override
-    public void deleteAuths();
+    @Delete("delete from user_auths where user_id = #{userId}")
+    public void deleteAuths(int userId);
 
 
     @Override

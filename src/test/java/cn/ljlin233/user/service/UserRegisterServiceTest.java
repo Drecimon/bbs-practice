@@ -1,6 +1,5 @@
 package cn.ljlin233.user.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -23,6 +22,8 @@ import cn.ljlin233.util.verification.service.VerificationService;
 @WebAppConfiguration
 public class UserRegisterServiceTest {
 
+    @Autowired
+    private UserActiveService userActiveService;
 
     @Autowired
     private UserRegisterService userRegisterService;
@@ -40,7 +41,10 @@ public class UserRegisterServiceTest {
         String verId = verification.getVerificationId();
         String verCode = verificationDao.getVerificationCode(verId);
 
-        //userRegisterService.registerUser("5", "123", "student", "email@123.com", verId, verCode);
+        //userRegisterService.registerUser("5", "123", "student", "130@qq.com", verId, verCode);
+        //assertNotNull(userActiveService);
+
+        //userActiveService.activeUser("3bb096259a4e4e6086862ece30fbe135");
     }
     
 }

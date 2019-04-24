@@ -1,6 +1,7 @@
 package cn.ljlin233.user.dao.impl;
 
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,6 +17,7 @@ public interface UserRoleDaoMapper extends UserRoleDao {
     public void addUserRole(@Param("userId") int userId, @Param("role") String role);
     
     @Override
-    public void deleteUserRole();
+    @Delete("delete from user_role where user_id = #{userId}")
+    public void deleteUserRole(int userId);
 
 }
