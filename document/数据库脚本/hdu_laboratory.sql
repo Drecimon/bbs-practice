@@ -28,17 +28,20 @@ create table if not exists user_info (
     `introduction` varchar(100) not null default '无介绍',
     `register_time` datetime not null,
     `profile_picture` varchar(100) not null default 'C:/Users/ljlin/Desktop/default_profile_photo.jpg',
+    `active` tinyint not null default 0,
+    `active_id` char(32) not null,
     `isban` tinyint not null default 0,
     PRIMARY KEY (`id`),
     unique key (`account`),
     unique key (`email`),
-    unique key (`phone`)
+    unique key (`phone`),
+    unique key (`active_id`)
 );
 -- 插入测试数据
-insert into user_info (account, email, phone, register_time) values ('1', '123@qq.com', '123451', now());
-insert into user_info (account, email, phone, register_time) values ('2', '124@qq.com', '123452', now());
-insert into user_info (account, email, phone, register_time) values ('3', '125@qq.com', '123453', now());                
-insert into user_info (account, email, register_time) values ('4', '126@qq.com', now()); 
+insert into user_info (account, email, phone, register_time, active, active_id) values ('1', '123@qq.com', '123451', now(), '1', '123');
+insert into user_info (account, email, phone, register_time, active, active_id) values ('2', '124@qq.com', '123452', now(), '1', '124');
+insert into user_info (account, email, phone, register_time, active, active_id) values ('3', '125@qq.com', '123453', now(), '1', '125');                
+insert into user_info (account, email, register_time, active, active_id) values ('4', '126@qq.com', now(), '1', '126');
 
 -- 用户授权表
 drop table if exists user_auths;

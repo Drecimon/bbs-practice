@@ -23,6 +23,8 @@
 | introduction    | varchar(100) | 不空        | 个人介绍, 默认值"无介绍"
 | register_time   | datetime     | 不空        | 注册时间
 | profile_picture | varchar(100) | 不空        | 头像图片存储地址, 默认值 默认头像地址
+| active          | tinyint      | 不空        | 标识是否激活，初始为0
+| acitve_id       | char(32)     | 不空        | 32位激活码
 | isban           | tinyint      | 不空        | 是否为黑名单, 默认值 0
 
 ### 3.角色权限表
