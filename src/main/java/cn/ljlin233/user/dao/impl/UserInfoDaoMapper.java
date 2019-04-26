@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -45,7 +44,8 @@ public interface UserInfoDaoMapper extends UserInfoDao {
     @Select("select * from user_info where id = #{id}")
     @Results({
         @Result(column = "register_time", property = "registerTime"),
-        @Result(column = "profile_picture", property = "profilePicture"), 
+        @Result(column = "profile_picture", property = "profilePicture"),
+        @Result(column = "active_id", property = "activeId"),
     })
     public UserInfo getUserInfoById(int id);
     

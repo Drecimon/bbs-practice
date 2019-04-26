@@ -25,26 +25,28 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 
     @Override
-    public void addToken(String userId) {
+    public String addToken(int userId) {
         String token = UUID.randomUUID().toString().replace("-", "");
-        userTokenDao.addToken(userId, token);
+        userTokenDao.addToken(String.valueOf(userId), token);
+        return token;
     }
 
     @Override
-    public void deleteToken(String userId) {
-        userTokenDao.deleteToken(userId);
+    public void deleteToken(int userId) {
+        userTokenDao.deleteToken(String.valueOf(userId));
     }
 
     @Override
-    public boolean checkRefreshToken(String userId, String token) {
+    public boolean checkRefreshToken(int userId, String token) {
 
         boolean result = false;
-        boolean keyFlag = userTokenDao.hasTokenKey(userId);
+        String userIdString = String.valueOf(userId);
+        boolean keyFlag = userTokenDao.hasTokenKey(userIdString);
         if (keyFlag) {
-            if (userTokenDao.getToken(userId).compareTo(token) == 0) {
+            if (userTokenDao.getToken(userIdString).compareTo(token) == 0) {
                 result = true;
-                userTokenDao.refreshToken(userId);
-            } 
+                userTokenDao.refreshToken(userIdString);
+            }
         }
         return result;
     }

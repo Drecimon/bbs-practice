@@ -14,18 +14,21 @@ import lombok.Setter;
 public class UserToken {
 
     private int userId;
-    private int userToken;
+    private String userToken;
+    private String userRole;
 
     public UserToken() {};
 
-    public UserToken(int userId, int userToken) {
+    public UserToken(int userId, String userToken, String userRole) {
         this.userId = userId;
         this.userToken = userToken;
+        this.userRole = userRole;
     }
 
     @Override
     public String toString() {
-        return "UserToken [userId=" + userId + ", userToken=" + userToken + "]";
+        return "UserToken [userId=" + userId + ", userRole=" + userRole + ", userToken=" + userToken + "]";
     }
-    
+
+
 }

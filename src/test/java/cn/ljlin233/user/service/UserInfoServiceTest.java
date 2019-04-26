@@ -1,12 +1,10 @@
 package cn.ljlin233.user.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -35,6 +33,7 @@ public class UserInfoServiceTest {
     @Test
     public void getUserInfo() {
         assertNotNull(userInfoService.getUserInfo(1).toString());
+        //assertEquals(1, userInfoService.getUserInfo(1).toString());
         //System.out.println(1);
     }
     
