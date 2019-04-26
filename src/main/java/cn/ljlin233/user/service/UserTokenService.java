@@ -5,10 +5,10 @@ package cn.ljlin233.user.service;
  */
 public interface UserTokenService {
 
-    void addToken(String userId);
+    String addToken(int userId);
 
-    void deleteToken(String userId);
+    void deleteToken(int userId);
 
-    boolean checkRefreshToken(String userId, String token);
+    boolean checkRefreshToken(int userId, String token);
 
 }

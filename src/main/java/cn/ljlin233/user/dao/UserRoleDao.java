@@ -9,4 +9,6 @@ public interface UserRoleDao {
     
     void deleteUserRole(int userId);
 
+    String getUserRoleByUserId(int userId);
+
 }
