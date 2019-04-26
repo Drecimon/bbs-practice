@@ -52,15 +52,16 @@ create table if not exists user_auths(
     `identity_type` enum('account', 'email', 'phone') not null,
     `identifier` varchar(30) not null,
     `credential` char(32) not null,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    unique key (`identifier`)
 );
--- 插入测试数据
-insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'account', 1, '123');
-insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'email', '123@qq.com', '123');
-insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'phone', '123451', '123');
-insert into user_auths (user_id, identity_type, identifier, credential) values ( 2, 'email', '124@qq.com', '123');
-insert into user_auths (user_id, identity_type, identifier, credential) values ( 3, 'email', '125@qq.com', '123');
-insert into user_auths (user_id, identity_type, identifier, credential) values ( 4, 'email', '126@qq.com', '123');
+-- 插入测试数据 密码明文为123，此处为加密后的密码
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'account', 1, '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'email', '123@qq.com', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'phone', '123451', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 2, 'email', '124@qq.com', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 3, 'email', '125@qq.com', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 4, 'email', '126@qq.com', '202cb962ac59075b964b07152d234b70');
 
 --  角色权限表
 drop table if exists user_role;
