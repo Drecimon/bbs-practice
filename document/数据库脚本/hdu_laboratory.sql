@@ -98,3 +98,60 @@ create table if not exists intro_achievement (
     `visit_count` int not null default 0,
     PRIMARY KEY (`id`)
 );
+
+-- 荣誉奖项表
+drop table if exists intro_award;
+create table if not exists intro_award (
+    `id` int not null auto_increment,
+    `title` varchar(200) not null,
+    `content` text not null,
+    `up_userid` int not null,
+    `up_nickname` char(20) not null,
+    `up_date` datetime not null,
+    `visit_count` int not null default 0,
+    PRIMARY KEY (`id`)
+);
+
+-- 成员介绍表
+drop table if exists intro_member;
+create table if not exists intro_member (
+    `id` int not null auto_increment,
+    `member_id` int not null,
+    `member_type` enum('student', 'teacher') not null,
+    `member_name` char(20) not null,
+    `department_id` int not null,
+    PRIMARY key (`id`)
+);
+
+-- 成员申请表
+drop table if exists intro_apply;
+create table if not exists intro_apply (
+    `id` int not null auto_increment,
+    `user_id` int not null,
+    `department_id` int not null,
+    `apply_status` enum('待审核', '已通过', '已拒绝') not null,
+    PRIMARY key (`id`)
+);
+
+-- 部门介绍表
+drop table if exists intro_department;
+create table if not exists intro_achievement (
+    `id` int not null auto_increment,
+    `name` char(20) not null,
+    `description` text not null,
+    PRIMARY key (`id`),
+    unique key (`name`)
+);
+
+-- 招聘信息表
+drop table if exists intro_job;
+create table if not exists intro_job (
+    `id` int not null auto_increment,
+    `title` varchar(200) not null,
+    `content` text not null,
+    `up_userid` int not null,
+    `up_nickname` char(20) not null,
+    `up_date` datetime not null,
+    `visit_count` int not null default 0,
+    PRIMARY KEY (`id`)
+);
