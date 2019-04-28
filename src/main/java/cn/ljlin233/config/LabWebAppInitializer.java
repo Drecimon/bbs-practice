@@ -1,5 +1,6 @@
 package cn.ljlin233.config;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -26,7 +27,12 @@ public class LabWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         return new String[] {"/"};
     }
 
+    @Override
+    protected Filter[] getServletFilters() {
+		return new Filter[] {new CORSFilter()};
+	}
 
+    
     @Override
     protected void customizeRegistration(Dynamic registration) {
             

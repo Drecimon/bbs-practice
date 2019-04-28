@@ -1,5 +1,7 @@
 package cn.ljlin233.user.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,6 @@ import cn.ljlin233.util.verification.service.VerificationService;
 @WebAppConfiguration
 public class UserRegisterServiceTest {
 
-    @Autowired
-    private UserActiveService userActiveService;
-
-    @Autowired
-    private UserRegisterService userRegisterService;
 
     @Autowired
     private VerificationService verificationService;
@@ -38,7 +35,7 @@ public class UserRegisterServiceTest {
         Verification verification = verificationService.getVerification();
         String verId = verification.getVerificationId();
         String verCode = verificationDao.getVerificationCode(verId);
-
+        assertNotNull(verCode);
         //userRegisterService.registerUser("5", "123", "student", "130@qq.com", verId, verCode);
         //assertNotNull(userActiveService);
 
