@@ -1,14 +1,11 @@
 package cn.ljlin233.util.verification.entity;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Verification
  */
-@Component
 @Setter
 @Getter
 public class Verification {

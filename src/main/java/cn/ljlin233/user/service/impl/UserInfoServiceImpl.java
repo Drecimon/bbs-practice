@@ -13,21 +13,19 @@ import cn.ljlin233.user.service.UserInfoService;
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
-    private UserInfo userInfo;
     private UserInfoDao userInfoDao;
     
     public UserInfoServiceImpl() {};
 
     @Autowired
-    public UserInfoServiceImpl(UserInfo userInfo, UserInfoDao userInfoDao) {
+    public UserInfoServiceImpl(UserInfoDao userInfoDao) {
         
-        this.userInfo = userInfo;
         this.userInfoDao = userInfoDao;
     }
 
     @Override
     public UserInfo getUserInfo(int id) {
-        userInfo = userInfoDao.getUserInfoById(id);
+        UserInfo userInfo = userInfoDao.getUserInfoById(id);
         return userInfo;
     }
 

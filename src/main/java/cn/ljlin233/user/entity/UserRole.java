@@ -1,6 +1,5 @@
 package cn.ljlin233.user.entity;
 
-import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@Component
 public class UserRole {
 
     private int id;

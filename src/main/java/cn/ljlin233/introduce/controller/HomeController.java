@@ -14,7 +14,7 @@ public class HomeController {
     public String index() throws Exception {
 
         //throw new NoSuchRequestHandlingMethodException(request);
-
+        
         return "index";
     }
 

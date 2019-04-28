@@ -1,6 +1,5 @@
 package cn.ljlin233.util.email.entity;
 
-import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 /**
  * ActiveEmail
  */
-@Component
 @Setter
 @Getter
 public class ActiveEmail {
