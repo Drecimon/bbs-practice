@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * MybatisConfig
  */
 @Configuration
-@MapperScan("cn.ljlin233.user.dao.impl")
+@MapperScan(basePackages = {"cn.ljlin233.user.dao.impl", "cn.ljlin233.introduce.dao.impl"})
 public class MybatisConfig {
 
 

@@ -15,8 +15,14 @@ public class AchievementController {
 
 
     @RequestMapping(value = "/achievements", method = RequestMethod.POST)
-    public void addAchievement(HttpServletRequest http) {
+    public void addAchievement(HttpServletRequest request) {
         
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String userId = request.getParameter("userId");
+        String nickname = request.getParameter("nickname");
+
+
     }
     
 }

@@ -25,6 +25,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import cn.ljlin233.config.interceptor.AuthInterceptor;
+
 import org.springframework.context.annotation.FilterType;
 
 /**
@@ -54,8 +57,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-
-        //configurer.enable();
+        // 配置静态资源处理
+        configurer.enable();
     }
 
     @Override
@@ -65,7 +68,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
+        registry.addInterceptor(new AuthInterceptor());
     }
 
     @Override
