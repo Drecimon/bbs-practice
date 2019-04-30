@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.ljlin233.config.interceptor.AdminAuth;
+import cn.ljlin233.config.interceptor.RootAuth;
 import cn.ljlin233.user.entity.UserInfo;
 import cn.ljlin233.user.service.UserInfoService;
 
@@ -33,6 +35,8 @@ public class UserInfoController {
     }
 
 
+    @AdminAuth
+    @RootAuth   
     @RequestMapping(value = {"/user"}, params = {"id"}, method = RequestMethod.GET)
     @ResponseBody
     public UserInfo getUserInfo(@RequestParam int id) {
