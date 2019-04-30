@@ -13,7 +13,7 @@ import cn.ljlin233.util.verification.service.VerificationService;
  * VerificationController
  */
 @Controller
-@RequestMapping("/api/verification")
+@RequestMapping("/api")
 public class VerificationController {
 
     private VerificationService verificationService;
@@ -25,8 +25,8 @@ public class VerificationController {
         this.verificationService = verificationService;
     }
     
-
-    @RequestMapping(method = RequestMethod.GET)
+    
+    @RequestMapping(value = "/verification", method = RequestMethod.GET)
     @ResponseBody
     public Verification getVerification() {
         return verificationService.getVerification();
