@@ -1,5 +1,6 @@
 package cn.ljlin233.user.dao.impl;
 
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -25,6 +26,6 @@ public interface UserRoleDaoMapper extends UserRoleDao {
 
     @Override
     @Select("select role from user_role where user_id = #{userId}")
-    public String getUserRoleByUserId(int userId);
+    public List<String> getUserRoleByUserId(int userId);
 
 }

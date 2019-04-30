@@ -58,7 +58,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         // 配置静态资源处理
-        configurer.enable();
+        //configurer.enable();
     }
 
     @Override

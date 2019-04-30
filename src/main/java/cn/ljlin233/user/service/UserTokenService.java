@@ -9,6 +9,7 @@ public interface UserTokenService {
 
     void deleteToken(int userId);
 
-    boolean checkRefreshToken(int userId, String token);
+    boolean checkRefreshToken(String token);
 
+    public Integer getUserid(String token);
 }

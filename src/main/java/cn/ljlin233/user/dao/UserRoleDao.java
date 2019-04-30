@@ -1,5 +1,7 @@
 package cn.ljlin233.user.dao;
 
+import java.util.List;
+
 /**
  * UserRoleDao
  */
@@ -9,6 +11,6 @@ public interface UserRoleDao {
     
     void deleteUserRole(int userId);
 
-    String getUserRoleByUserId(int userId);
+    List<String> getUserRoleByUserId(int userId);
 
 }

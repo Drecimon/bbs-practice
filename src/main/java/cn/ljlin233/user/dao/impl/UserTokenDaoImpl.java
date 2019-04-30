@@ -26,41 +26,41 @@ public class UserTokenDaoImpl implements UserTokenDao {
 
 
     @Override
-    public void addToken(String userId, String token) {
+    public void addToken(String token, String userId) {
 
-        stringRedisTemplate.opsForValue().set(userId, token , 24*7, TimeUnit.HOURS);
+        stringRedisTemplate.opsForValue().set(token, userId , 24*7, TimeUnit.HOURS);
 
     }
 
     @Override
-    public String getToken(String userId) {
+    public String getUserId(String token) {
         String result = "";
-        boolean keyFlag = stringRedisTemplate.hasKey(userId);
+        boolean keyFlag = stringRedisTemplate.hasKey(token);
         if (keyFlag) {
-            result = stringRedisTemplate.opsForValue().get("userId");
+            result = stringRedisTemplate.opsForValue().get("token");
         }
         return result;
     }
 
     @Override
-    public void deleteToken(String userId) {
-        stringRedisTemplate.delete(userId);
+    public void deleteToken(String token) {
+        stringRedisTemplate.delete(token);
     }
 
     @Override
-    public void refreshToken(String userId) {
-        stringRedisTemplate.expire(userId, 24*7, TimeUnit.HOURS);
+    public void refreshToken(String token) {
+        stringRedisTemplate.expire(token, 24*7, TimeUnit.HOURS);
     }
 
     @Override
-    public long getTokenTime(String userId) {
+    public long getTokenTime(String token) {
 
-        return stringRedisTemplate.getExpire(userId, TimeUnit.SECONDS);
+        return stringRedisTemplate.getExpire(token, TimeUnit.SECONDS);
     }
 
     @Override
-    public boolean hasTokenKey(String userId) {
-        return stringRedisTemplate.hasKey(userId);
+    public boolean hasToken(String token) {
+        return stringRedisTemplate.hasKey(token);
     }
 
 }

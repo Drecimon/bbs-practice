@@ -5,16 +5,16 @@ package cn.ljlin233.user.dao;
  */
 public interface UserTokenDao {
 
-    void addToken(String userId, String token);
+    void addToken(String token, String userId);
 
-    String getToken(String userId);
+    String getUserId(String token);
 
-    void deleteToken(String userId);
+    void deleteToken(String token);
 
-    void refreshToken(String userId);
+    void refreshToken(String token);
 
-    long getTokenTime(String userId);
+    long getTokenTime(String token);
 
-    boolean hasTokenKey(String userId);
+    boolean hasToken(String token);
 
 }

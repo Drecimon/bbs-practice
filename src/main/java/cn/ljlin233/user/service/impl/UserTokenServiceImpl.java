@@ -37,18 +37,22 @@ public class UserTokenServiceImpl implements UserTokenService {
     }
 
     @Override
-    public boolean checkRefreshToken(int userId, String token) {
+    public boolean checkRefreshToken(String token) {
 
         boolean result = false;
-        String userIdString = String.valueOf(userId);
-        boolean keyFlag = userTokenDao.hasTokenKey(userIdString);
+        boolean keyFlag = userTokenDao.hasToken(token);
         if (keyFlag) {
-            if (userTokenDao.getToken(userIdString).compareTo(token) == 0) {
-                result = true;
-                userTokenDao.refreshToken(userIdString);
-            }
+            result = true;
+            userTokenDao.refreshToken(token);
         }
         return result;
     }
 
+    public Integer getUserid(String token) {
+        String userId = userTokenDao.getUserId(token);
+        if (userId != null) {
+            return new Integer(userId);
+        }
+        return null;
+    }
 }

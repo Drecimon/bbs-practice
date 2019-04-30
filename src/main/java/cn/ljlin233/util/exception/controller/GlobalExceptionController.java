@@ -31,7 +31,9 @@ public class GlobalExceptionController extends DispatcherServlet {
         map.put("code", "404");
         map.put("url", request.getRequestURI());
         return map;  
-    }  
+    } 
+
+    
 
     @ExceptionHandler(DataCheckedException.class)
     @ResponseBody

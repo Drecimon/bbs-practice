@@ -1,5 +1,6 @@
 package cn.ljlin233.user.entity;
 
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,11 @@ public class UserToken {
 
     private int userId;
     private String userToken;
-    private String userRole;
+    private List<String> userRole;
 
     public UserToken() {};
 
-    public UserToken(int userId, String userToken, String userRole) {
+    public UserToken(int userId, String userToken, List<String> userRole) {
         this.userId = userId;
         this.userToken = userToken;
         this.userRole = userRole;
