@@ -60,8 +60,11 @@ insert into user_auths (user_id, identity_type, identifier, credential) values (
 insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'email', '123@qq.com', '202cb962ac59075b964b07152d234b70');
 insert into user_auths (user_id, identity_type, identifier, credential) values ( 1, 'phone', '123451', '202cb962ac59075b964b07152d234b70');
 insert into user_auths (user_id, identity_type, identifier, credential) values ( 2, 'email', '124@qq.com', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 2, 'account', 2, '202cb962ac59075b964b07152d234b70');
 insert into user_auths (user_id, identity_type, identifier, credential) values ( 3, 'email', '125@qq.com', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 3, 'account', 3, '202cb962ac59075b964b07152d234b70');
 insert into user_auths (user_id, identity_type, identifier, credential) values ( 4, 'email', '126@qq.com', '202cb962ac59075b964b07152d234b70');
+insert into user_auths (user_id, identity_type, identifier, credential) values ( 4, 'account', 4, '202cb962ac59075b964b07152d234b70');
 
 --  角色权限表
 drop table if exists user_role;
@@ -99,6 +102,9 @@ create table if not exists intro_achievement (
     PRIMARY KEY (`id`)
 );
 
+insert into intro_achievement (title, content, up_userid, up_nickname, up_date) values ('hello title', 'hello content', 1, 'noone', now());
+insert into intro_achievement (title, content, up_userid, up_nickname, up_date) values ('hello title', 'hello content', 1, 'noone', now());
+
 -- 荣誉奖项表
 drop table if exists intro_award;
 create table if not exists intro_award (
@@ -111,6 +117,7 @@ create table if not exists intro_award (
     `visit_count` int not null default 0,
     PRIMARY KEY (`id`)
 );
+
 
 -- 成员介绍表
 drop table if exists intro_member;
