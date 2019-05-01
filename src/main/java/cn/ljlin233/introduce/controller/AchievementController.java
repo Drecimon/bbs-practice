@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.ljlin233.config.interceptor.AdminAuth;
-import cn.ljlin233.config.interceptor.RootAuth;
-import cn.ljlin233.config.interceptor.TeacherAuth;
+import cn.ljlin233.util.auth.*;
+
 import cn.ljlin233.introduce.entity.Achievement;
 import cn.ljlin233.introduce.service.AchievementService;
+
 
 /**
  * AchievementController

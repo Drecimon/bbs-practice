@@ -37,7 +37,7 @@ public class UserTokenDaoImpl implements UserTokenDao {
         String result = "";
         boolean keyFlag = stringRedisTemplate.hasKey(token);
         if (keyFlag) {
-            result = stringRedisTemplate.opsForValue().get("token");
+            result = stringRedisTemplate.opsForValue().get(token);
         }
         return result;
     }

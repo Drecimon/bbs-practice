@@ -42,7 +42,7 @@ public class UserLoginControllerTest {
         String except = "{\"userId\":4,\"userToken\":\"e386b6058e604313af9a48456ff5a147\",\"userRole\":[\"student\",\"teacher\",\"admin\",\"root\"]}";
         
         request = post("/api/login")
-                .param("identifier", "4")
+                .param("identifier", "1")
                 .param("credential", "123");
 
         mockMvc.perform(request).andExpect(content().string(except));

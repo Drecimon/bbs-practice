@@ -1,4 +1,4 @@
-package cn.ljlin233.config.interceptor;
+package cn.ljlin233.config;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,80 +15,129 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.ljlin233.user.dao.UserRoleDao;
 import cn.ljlin233.user.service.UserTokenService;
 import cn.ljlin233.util.exception.entity.DataCheckedException;
+import cn.ljlin233.util.auth.MyselfAuth;
+import cn.ljlin233.util.auth.StudentAuth;
+import cn.ljlin233.util.auth.AdminAuth;
+import cn.ljlin233.util.auth.RootAuth;
+import cn.ljlin233.util.auth.TeacherAuth;
+import cn.ljlin233.util.auth.dao.AuthDao;
 
 /**
  * AuthInterceptor
  */
+@Configuration
 public class AuthInterceptor implements HandlerInterceptor {
 
-    private boolean needAuth = false;
-
+    @Autowired
     private UserTokenService userTokenService;
-    private UserRoleDao userRoleDao;
-
-
-    public AuthInterceptor() {};
 
     @Autowired
-    public AuthInterceptor(UserTokenService userTokenService, UserRoleDao userRoleDao) {
-        this.userTokenService = userTokenService;
-        this.userRoleDao = userRoleDao;
-    }
+    private UserRoleDao userRoleDao;
+
+    @Autowired
+    private AuthDao authDao;
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        boolean needAuth = false;
+        boolean hasAuth = false;
+        boolean setMessage = false;
+        DataCheckedException ex = new DataCheckedException();
 
         String token = request.getHeader("token");
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-        StudentAuth studentAuth = method.getAnnotation(StudentAuth.class);
-        
+
+        // 需要自有权限
+        MyselfAuth myselfAuth = method.getAnnotation(MyselfAuth.class);
+        if (myselfAuth != null && !hasAuth) {
+            needAuth = true;
+            Integer userId = getUserIdByToken(token);
+
+            String tableName = myselfAuth.tableName();
+            String column = myselfAuth.column();
+            Integer id = Integer.valueOf(request.getParameter("id"));
+            Integer ownerId = authDao.getOwnerId(tableName, column, id);
+            
+            if (!ownerId.equals(userId)) {
+                if (!setMessage) {
+                    ex.setMessage("此操作需本人权限!");
+                    setMessage = true;               
+                }
+            } else {
+                hasAuth = true;
+            }
+        }
+
         // 需要student权限
-        if (studentAuth != null) {
+        StudentAuth studentAuth = method.getAnnotation(StudentAuth.class);
+        if (studentAuth != null && !hasAuth) {
+            needAuth = true;
             Integer userId = getUserIdByToken(token);
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("student")) {
-                throw new DataCheckedException("此操作需student权限，请联系管理员!");
+                if (!setMessage) {
+                    ex.setMessage("此操作需student权限，请联系管理员!");
+                    setMessage = true;                    
+                }
+            } else {
+                hasAuth = true;
             }
-            return true;
         }
 
         // 需要teacher权限
         TeacherAuth teacherAuth = method.getAnnotation(TeacherAuth.class);
-        if (teacherAuth != null) {
+        if (teacherAuth != null  && !hasAuth) {
+            needAuth = true;
             Integer userId = getUserIdByToken(token);
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("teacher")) {
-                throw new DataCheckedException("此操作需教师权限，请联系管理员!");
+                if (!setMessage) {
+                    ex.setMessage("此操作需教师权限，请联系管理员!");
+                    setMessage = true;                    
+                }
+            } else {
+                hasAuth = true;
             }
-            return true;
         }
         // 需要管理员权限
         AdminAuth adminAuth = method.getAnnotation(AdminAuth.class);
-        if (adminAuth != null) {
+        if (adminAuth != null  && !hasAuth) {
+            needAuth = true;
             Integer userId = getUserIdByToken(token);
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("admin")) {
-                throw new DataCheckedException("此操作需管理员权限，请联系超级管理员!");
+                if (!setMessage) {
+                    ex.setMessage("此操作需管理员权限，请联系超级管理员!");
+                    setMessage = true;                    
+                }
+            } else {
+                hasAuth = true;
             }
-            return true;
         }
         // 需要超级管理员权限
         RootAuth rootAuth = method.getAnnotation(RootAuth.class);
-        if (rootAuth != null) {
+        if (rootAuth != null  && !hasAuth ) {
+            needAuth = true;
             Integer userId = getUserIdByToken(token);
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("root")) {
-                throw new DataCheckedException("此操作需root权限!");
+                if (!setMessage) {
+                    ex.setMessage("此操作需root权限!"); 
+                    setMessage = true;                    
+                }
+            } else {
+                hasAuth = true;
             }
-            return true;
         }
         
-        if (!needAuth) {
+        if (!needAuth || hasAuth) {
             return true;
         } else {
-            return false;
+            throw ex;
         }
     }
 
@@ -105,17 +155,17 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 
     private Integer getUserIdByToken(String token) {
-        needAuth = true;
         // 判断是否登录
         if (token == null || token.length()==0) {
             throw new DataCheckedException("请先登录!");
         }
+
         Integer userId = userTokenService.getUserid(token);
+
         if (userId == null) {
             throw new DataCheckedException("登录已过期，请重新登录!");
         }
         return userId;
     }
-
 
 }

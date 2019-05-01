@@ -2,6 +2,7 @@ package cn.ljlin233.config;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -25,8 +26,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import cn.ljlin233.config.interceptor.AuthInterceptor;
 
 import org.springframework.context.annotation.FilterType;
 
@@ -65,10 +64,16 @@ public class WebConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
 
     }
+    
+    // 拦截器
+    @Bean
+    public AuthInterceptor getAuthInterceptor() {
+        return new AuthInterceptor();
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor());
+        registry.addInterceptor(getAuthInterceptor());
     }
 
     @Override

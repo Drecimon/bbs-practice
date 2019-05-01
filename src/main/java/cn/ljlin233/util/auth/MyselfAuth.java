@@ -1,4 +1,4 @@
-package cn.ljlin233.config.interceptor;
+package cn.ljlin233.util.auth;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
 @Inherited
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TeacherAuth {
+// 资源拥有者所具有的权限
+public @interface MyselfAuth {
     boolean validate() default true;
+    String tableName() default "";
+    String column() default "";
 }

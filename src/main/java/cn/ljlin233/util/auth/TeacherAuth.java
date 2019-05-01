@@ -1,4 +1,4 @@
-package cn.ljlin233.config.interceptor;
+package cn.ljlin233.util.auth;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 @Inherited
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AdminAuth {
+// 全体教师所拥有的权限
+public @interface TeacherAuth {
     boolean validate() default true;
 }

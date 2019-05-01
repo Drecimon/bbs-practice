@@ -27,7 +27,7 @@ public class UserTokenServiceImpl implements UserTokenService {
     @Override
     public String addToken(int userId) {
         String token = UUID.randomUUID().toString().replace("-", "");
-        userTokenDao.addToken(String.valueOf(userId), token);
+        userTokenDao.addToken(token, String.valueOf(userId)); 
         return token;
     }
 
@@ -49,9 +49,11 @@ public class UserTokenServiceImpl implements UserTokenService {
     }
 
     public Integer getUserid(String token) {
+
         String userId = userTokenDao.getUserId(token);
-        if (userId != null) {
-            return new Integer(userId);
+
+        if (userId != null && userId.length()!= 0) {
+            return Integer.valueOf(userId);
         }
         return null;
     }
