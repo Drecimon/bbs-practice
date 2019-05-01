@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
 // 资源拥有者所具有的权限
 public @interface MyselfAuth {
     boolean validate() default true;
-    String tableName() default "";
-    String column() default "";
+    String tableName();
+    String column();
 }

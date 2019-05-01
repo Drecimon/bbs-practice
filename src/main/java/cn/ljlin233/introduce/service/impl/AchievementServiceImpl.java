@@ -69,16 +69,102 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Override
     public List<Achievement> getAllAchievements() {
-
         List<Achievement> all = null;
-
         try {
             all = achievementDao.getAllAchievements();
         } catch (Exception e) {
             throw new SystemException("服务器获取所有研究成果失败!", e.getMessage());
         }
-    
         return all;
     }
 
+    @Override
+    public List<Achievement> getAchievementsPage(int page, int pageNum) {
+        int start = (page-1)*pageNum;
+        List<Achievement> result = null;
+        try {
+            result = achievementDao.getAchievementsPage(start, pageNum);
+        } catch (Exception e) {
+            throw new SystemException("服务器获取研究成果失败!", e.getMessage());
+        }
+        
+        return result;
+    }
+
+    @Override
+    public List<Achievement> searchAchievements(String keywords, int page, int pageNum) {
+        int start = (page-1)*pageNum;
+        List<Achievement> result = null;
+        try {
+            result = achievementDao.searchAchievements(keywords, start, pageNum);
+        } catch (Exception e) {
+            throw new SystemException("服务器搜索研究成果失败!", e.getMessage());
+        }
+        
+        return result;
+    }
+
+
+    @Override
+    public Achievement getAchievementById(int id) {
+        Achievement result = null;
+        try {
+            result = achievementDao.getAchievementById(id);
+        } catch (Exception e) {
+            throw new SystemException("服务器获取研究成果失败!", e.getMessage());
+        }
+        // 访问次数+1
+        addVisitCount(id);
+
+        return result;
+    }
+
+    @Override
+    public void addVisitCount(int id) {
+        try {
+            achievementDao.addVisitCount(id);
+        } catch (Exception e) {
+            throw new SystemException("研究成果访问数错误!", e.getMessage());
+        }
+    }
+
+    @Override
+    public int getAchievementCount() {
+        int count = 0;
+        try {
+            count = achievementDao.getAchievementCount();
+        } catch (Exception e) {
+            throw new SystemException("读取研究成果数量错误!", e.getMessage());
+        }
+        return count;
+    }
+
+    @Override
+    public int getSearchCount(String keywords) {
+        int count = 0;
+        try {
+            count = achievementDao.getSearchCount(keywords);
+        } catch (Exception e) {
+            throw new SystemException("读取研究成果搜索数量错误!", e.getMessage());
+        }
+        return count;
+    }
+
+    @Override
+    public void updateAchievement(Achievement achievement) {
+        try {
+            achievementDao.updateAchievement(achievement);
+        } catch (Exception e) {
+            throw new SystemException("更新研究成果失败!", e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteAchievement(int id) {
+        try {
+            achievementDao.deleteAchievement(id);
+        } catch (Exception e) {
+            throw new SystemException("删除研究成果失败!", e.getMessage());
+        }
+    }
 }

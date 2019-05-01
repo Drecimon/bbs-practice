@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,8 +55,10 @@ public class AchievementControllerTest {
 
         String except = "[{\"id\":9,\"title\":\"title\",\"content\":\"content\",\"upUserId\":null,\"upNickname\":null,\"upDate\":null,\"visitCount\":null}]";
         
-        request = get("/api/achievements");
+        //request = MockMvcRequestBuilders.get("/api/achievements?page=1&search=title");
         
+        request = MockMvcRequestBuilders.delete("/api/achievements?id=1");
+
         mockMvc.perform(request).andExpect(content().string(except));
 
     }

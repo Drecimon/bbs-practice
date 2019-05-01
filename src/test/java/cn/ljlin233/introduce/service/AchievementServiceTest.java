@@ -35,6 +35,13 @@ public class AchievementServiceTest {
     @Test
     public void testAddAchievement() {
         achievementService.addAchievement("title", "content", 1);
+
+    }
+
+    //@Test
+    public void testCount() {
+        int count = achievementService.getAchievementCount();
+        assertEquals(5, count);
     }
 
     //@Test
@@ -43,5 +50,7 @@ public class AchievementServiceTest {
         String expect = "[Achievement [content=content, title=title, upDate=null, upNickname=null, upUserId=null, visitCount=null]]"; 
         assertEquals(expect, all.toString());
     }
+
+    
     
 }
