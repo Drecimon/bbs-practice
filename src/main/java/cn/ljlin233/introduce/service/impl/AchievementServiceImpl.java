@@ -20,6 +20,7 @@ import cn.ljlin233.util.exception.entity.SystemException;
  * AchievementServiceImpl
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class AchievementServiceImpl implements AchievementService {
 
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -38,7 +39,6 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void addAchievement(String title, String content, Integer userId) {
 
         if (title == null || title.length() == 0) {
