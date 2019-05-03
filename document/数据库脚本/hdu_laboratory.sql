@@ -142,13 +142,19 @@ create table if not exists intro_apply (
 
 -- 部门介绍表
 drop table if exists intro_department;
-create table if not exists intro_achievement (
+create table if not exists intro_department (
     `id` int not null auto_increment,
     `name` char(20) not null,
     `description` text not null,
     PRIMARY key (`id`),
     unique key (`name`)
 );
+
+
+insert into intro_department (name, description) values ('test', 'hello');
+insert into intro_member (member_id, member_type, member_name, department_id) values (1, 'student', 'tony', 1);
+
+
 
 -- 招聘信息表
 drop table if exists intro_job;
