@@ -68,9 +68,9 @@ public class AchievementController {
     // 按页获取所有资源
     @RequestMapping(value = "/achievements", params = "page", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getAchievementsPage(@RequestParam String page) {
-        Integer pageInt = Integer.valueOf(page);
-        List<Achievement> result = achievementService.getAchievementsPage(pageInt, 10);
+    public Map<Object, Object> getAchievementsPage(@RequestParam int page) {
+
+        List<Achievement> result = achievementService.getAchievementsPage(page, 10);
         int count = achievementService.getAchievementCount();
         Map<Object, Object> map = new HashMap<>();
         map.put("totalCount", count);
@@ -82,9 +82,9 @@ public class AchievementController {
     // 按页搜索资源
     @RequestMapping(value = "/achievements", params = {"search", "page" }, method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> searchAchievements(@RequestParam String search, @RequestParam String page) {
-        Integer pageInt = Integer.valueOf(page);
-        List<Achievement> result = achievementService.searchAchievements(search, pageInt, 10);
+    public Map<Object, Object> searchAchievements(@RequestParam String search, @RequestParam int page) {
+        
+        List<Achievement> result = achievementService.searchAchievements(search, page, 10);
         int count = achievementService.getSearchCount(search);
         Map<Object, Object> map = new HashMap<>();
         map.put("totalCount", count);
@@ -96,18 +96,18 @@ public class AchievementController {
     // 获取资源详情
     @RequestMapping(value = "/achievements", params = "id", method = RequestMethod.GET)
     @ResponseBody
-    public Achievement getAchievementsById(@RequestParam String id) {
-        Integer idInt = Integer.valueOf(id);
-        Achievement result = achievementService.getAchievementById(idInt);
+    public Achievement getAchievementsById(@RequestParam int id) {
+
+        Achievement result = achievementService.getAchievementById(id);
         return result;
     }
 
     // 更新资源
     @MyselfAuth(tableName = "intro_achievement", column = "up_userid")
     @RequestMapping(value = "/achievements", params = "id", method = RequestMethod.PUT)
-    public void updateAchievement(@RequestParam String id, HttpServletRequest request) {
+    public void updateAchievement(@RequestParam int id, HttpServletRequest request) {
         Achievement achievement = new Achievement();
-        achievement.setId(Integer.valueOf(id));
+        achievement.setId(id);
         achievement.setTitle(request.getParameter("title"));
         achievement.setContent(request.getParameter("content"));
 
@@ -120,9 +120,8 @@ public class AchievementController {
     @AdminAuth
     @RootAuth
     @RequestMapping(value = "/achievements", params = "id", method = RequestMethod.DELETE)
-    public void deleteAchievement(@RequestParam String id) {
-        Integer idInt = Integer.valueOf(id);
-        achievementService.deleteAchievement(idInt);
+    public void deleteAchievement(@RequestParam int id) {
+        achievementService.deleteAchievement(id);
     }
 
 }
