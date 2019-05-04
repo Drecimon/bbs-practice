@@ -17,7 +17,6 @@ import cn.ljlin233.introduce.entity.Department;
 import cn.ljlin233.introduce.entity.Member;
 import cn.ljlin233.introduce.service.DepartmentService;
 import cn.ljlin233.util.auth.AdminAuth;
-import cn.ljlin233.util.auth.MyselfAuth;
 import cn.ljlin233.util.auth.RootAuth;
 import cn.ljlin233.util.auth.TeacherAuth;
 

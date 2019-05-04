@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ljlin233.introduce.entity.Member;
 import cn.ljlin233.introduce.service.MemberService;
+import cn.ljlin233.util.auth.AdminAuth;
+import cn.ljlin233.util.auth.RootAuth;
+import cn.ljlin233.util.auth.TeacherAuth;
 
 /**
  * MemberController
@@ -81,6 +86,27 @@ public class MemberController {
         result.put("members", all);
 
         return result;
+    }
+
+
+    @TeacherAuth @AdminAuth @RootAuth
+    @RequestMapping(value = "/members", method = RequestMethod.POST)
+    public void addMember(HttpServletRequest request) {
+
+        Integer memberId = Integer.valueOf(request.getParameter("memberId"));
+        Integer departmentId = Integer.valueOf(request.getParameter("departmentId"));
+        String memberName = request.getParameter("memberName");
+        String memberType = request.getParameter("memberType");
+
+        memberService.addMember(memberId, memberType, memberName, departmentId);
+    }
+
+
+    @TeacherAuth @AdminAuth @RootAuth
+    @RequestMapping(value = "/members", params = "id", method = RequestMethod.DELETE)
+    public void deleteMember(@RequestParam int id) {
+
+        memberService.deleteMember(id);
     }
 
 }

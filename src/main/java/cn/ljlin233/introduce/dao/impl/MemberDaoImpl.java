@@ -2,6 +2,8 @@ package cn.ljlin233.introduce.dao.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
@@ -51,4 +53,12 @@ public interface MemberDaoImpl extends MemberDao {
     public List<Member> searchMemberByName(@Param("name") String name, @Param("start") int start, @Param("pageNum") int pageNum);
 
     
+    @Override
+    @Insert("insert into intro_member (member_id, member_type, member_name, department_id) values (#{memberId}, #{memberType}, #{memberName}, #{departmentId})")
+    public void AddMember(Member member);
+
+    @Override
+    @Delete("delete from intro_member where id = #{id}")
+    public void deleteMember(int id);
+
 }

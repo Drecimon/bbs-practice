@@ -21,4 +21,8 @@ public interface MemberDao {
 
     public Integer getSearchCounts(String name);
 
+    public void AddMember(Member member);
+
+    public void deleteMember(int id);
+
 }

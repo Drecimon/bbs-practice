@@ -20,4 +20,9 @@ public interface MemberService {
     public List<Member> searchMembersByName(String name, int page, int pageNum);
 
     public int getSearchCounts(String name);
+
+    public void addMember(int memberId, String memberType, String memberName, int departmentId);
+
+    public void deleteMember(int id);
+
 }

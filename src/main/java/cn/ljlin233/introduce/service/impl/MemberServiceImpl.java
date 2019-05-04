@@ -97,4 +97,28 @@ public class MemberServiceImpl implements MemberService {
         return count;
     }
 
+    @Override
+    public void addMember(int memberId, String memberType, String memberName, int departmentId) {
+        Member member = new Member();
+        member.setMemberId(memberId);
+        member.setMemberType(memberType);
+        member.setMemberName(memberName);
+        member.setDepartmentId(departmentId);
+
+        try {
+            memberDao.AddMember(member);
+        } catch (Exception e) {
+            throw new SystemException("添加成员失败", e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteMember(int id) {
+        try {
+            memberDao.deleteMember(id);
+        } catch (Exception e) {
+            throw new SystemException("删除成员失败", e.getMessage());
+        }
+    }
+
 }

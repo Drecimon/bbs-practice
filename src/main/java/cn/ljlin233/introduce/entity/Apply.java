@@ -16,6 +16,8 @@ public class Apply {
 
     private Integer id;
     private Integer userId;
+    private String username;
+    private String applyType;
     private Integer departmentId;
     private String applyStatus;
     

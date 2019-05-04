@@ -34,4 +34,5 @@ public interface DepartmentDao {
 
     public int getMembersCount(int departmentId);
 
+
 }

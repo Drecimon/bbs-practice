@@ -1,6 +1,5 @@
 package cn.ljlin233.introduce.dao.impl;
 
-import java.lang.annotation.Repeatable;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
