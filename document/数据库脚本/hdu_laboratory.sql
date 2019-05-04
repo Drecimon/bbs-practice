@@ -135,6 +135,8 @@ drop table if exists intro_apply;
 create table if not exists intro_apply (
     `id` int not null auto_increment,
     `user_id` int not null,
+    `username` char(20) not null,
+    `apply_type` enum('student', 'teacher') not null,
     `department_id` int not null,
     `apply_status` enum('待审核', '已通过', '已拒绝') not null,
     PRIMARY key (`id`)
