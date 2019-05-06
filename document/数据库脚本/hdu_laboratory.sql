@@ -192,4 +192,28 @@ create table if not exists anno_scope (
     `announce_id` int not null,
     `department_id` tinyint not null,
     PRIMARY KEY (`id`)
-)
+);
+
+-- 资源管理模块
+drop table if exists res_resource;
+create table if not exists res_resource (
+    `id` int not null auto_increment,
+    `title` varchar(200) not null,
+    `content` text not null,
+    `category` enum('video', 'audio', 'image', 'document', 'rar') not null,
+    `up_userid` int not null,
+    `up_nickname` char(20) not null,
+    `up_date` datetime not null,
+    `visit_count` int not null default 0,
+    `download_count` int not null default 0,
+    `url` varchar(200),
+    PRIMARY KEY (`id`)
+);
+
+drop table if exists res_ban;
+create table if not exists res_ban (
+    `id` int not null auto_increment,
+    `ban_id` int not null,
+    `add_id` int not null,
+    PRIMARY KEY (`id`)
+);
