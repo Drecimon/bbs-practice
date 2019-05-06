@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.ljlin233.introduce.dao.ApplyDao;
 import cn.ljlin233.introduce.entity.Apply;
-import cn.ljlin233.introduce.entity.Member;
 import cn.ljlin233.introduce.service.ApplyService;
 import cn.ljlin233.introduce.service.MemberService;
 import cn.ljlin233.util.exception.entity.DataCheckedException;
