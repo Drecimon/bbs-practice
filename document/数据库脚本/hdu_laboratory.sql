@@ -157,7 +157,6 @@ insert into intro_department (name, description) values ('test', 'hello');
 insert into intro_member (member_id, member_type, member_name, department_id) values (1, 'student', 'tony', 1);
 
 
-
 -- 招聘信息表
 drop table if exists intro_job;
 create table if not exists intro_job (
@@ -170,3 +169,27 @@ create table if not exists intro_job (
     `visit_count` int not null default 0,
     PRIMARY KEY (`id`)
 );
+
+-- 通知模块
+-- 通知公告表
+drop table if exists anno_announce;
+create table if not exists anno_announce (
+    `id` int not null auto_increment,
+    `title` varchar(200) not null,
+    `content` text not null,
+    `up_userid` int not null,
+    `up_nickname` char(20) not null,
+    `up_date` datetime not null,
+    `visit_count` int not null default 0,
+    `save_path` varchar(200),
+    PRIMARY KEY (`id`)
+);
+
+-- 通知范围表
+drop table if exists anno_scope;
+create table if not exists anno_scope (
+    `id` int not null auto_increment,
+    `announce_id` int not null,
+    `department_id` tinyint not null,
+    PRIMARY KEY (`id`)
+)
