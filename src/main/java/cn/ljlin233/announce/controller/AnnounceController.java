@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ljlin233.announce.entity.Announce;
+import cn.ljlin233.announce.entity.AnnounceResponse;
 import cn.ljlin233.announce.service.AnnounceService;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * AnnounceController
@@ -41,11 +40,7 @@ public class AnnounceController {
         List<Announce> announces = announceService.getAllAnnounces();
         int count = announceService.getAllAnnouncesCount();
 
-        AnnounceResponse response = new AnnounceResponse();
-        response.setTotalCount(count);
-        response.setAnnounces(announces);
-
-        return response;
+        return new AnnounceResponse(count, announces);
     }
 
 
@@ -56,11 +51,7 @@ public class AnnounceController {
         List<Announce> announces = announceService.getAnnouncesByPage(page, 10);
         int count = announceService.getAllAnnouncesCount();
 
-        AnnounceResponse response = new AnnounceResponse();
-        response.setTotalCount(count);
-        response.setAnnounces(announces);
-
-        return response;
+        return new AnnounceResponse(count, announces);
     }
 
 
@@ -77,11 +68,7 @@ public class AnnounceController {
         List<Announce> announces = announceService.searchAnnounces(search, page, 10);
         int count = announceService.getSearchCount(search);
 
-        AnnounceResponse response = new AnnounceResponse();
-        response.setTotalCount(count);
-        response.setAnnounces(announces);
-
-        return response;
+        return new AnnounceResponse(count, announces);
 
     }
 
@@ -91,11 +78,7 @@ public class AnnounceController {
         List<Announce> announces = announceService.getAnnouncesByDepartment(departmentId, page, 10);
         int count = announceService.getDepartmentAnnounceCount(departmentId);
 
-        AnnounceResponse response = new AnnounceResponse();
-        response.setTotalCount(count);
-        response.setAnnounces(announces);
-
-        return response;
+        return new AnnounceResponse(count, announces);
     }
 
 
@@ -126,12 +109,4 @@ public class AnnounceController {
         announceService.deleteAnnounce(id);
     }
 
-}
-
-
-@Setter
-@Getter
-class AnnounceResponse {
-    private int totalCount;
-    private List<Announce> announces;
 }
