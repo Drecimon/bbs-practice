@@ -1,8 +1,6 @@
 package cn.ljlin233.introduce.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.ljlin233.util.auth.*;
-
 import cn.ljlin233.introduce.entity.Job;
 import cn.ljlin233.introduce.entity.JobResponse;
 import cn.ljlin233.introduce.service.JobService;
+import cn.ljlin233.util.auth.AdminAuth;
+import cn.ljlin233.util.auth.MyselfAuth;
+import cn.ljlin233.util.auth.RootAuth;
+import cn.ljlin233.util.auth.TeacherAuth;
 
 
 /**

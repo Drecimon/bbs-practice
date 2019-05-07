@@ -90,7 +90,7 @@ public class ResourceController {
         resourceService.addResource(title, content, category, upUserId, url);
     }
 
-    @RequestMapping(value = "/resources", method = RequestMethod.PUT)
+    @RequestMapping(value = "/resources", params = "id", method = RequestMethod.PUT)
     public void updateResource(@RequestParam int id, HttpServletRequest request) {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
@@ -99,7 +99,7 @@ public class ResourceController {
     }
 
 
-    @RequestMapping(value = "/resources", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/resources", params = "id", method = RequestMethod.DELETE)
     public void deleteResource(@RequestParam int id) {
 
         resourceService.deleteResource(id);
