@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ljlin233.util.auth.*;
 
 import cn.ljlin233.introduce.entity.Job;
+import cn.ljlin233.introduce.entity.JobResponse;
 import cn.ljlin233.introduce.service.JobService;
 
 
@@ -54,43 +55,33 @@ public class JobController {
     @RootAuth
     @RequestMapping(value = "/jobs", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getAllJobs() {
+    public JobResponse getAllJobs() {
         List<Job> all = jobService.getAllJobs();
         int count = jobService.getJobCount();
 
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("jobs", all);
-
-        return map;
+        return new JobResponse(count, all);
     }
 
     // 按页获取所有招聘信息
     @RequestMapping(value = "/jobs", params = "page", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getJobsPage(@RequestParam int page) {
+    public JobResponse getJobsPage(@RequestParam int page) {
 
         List<Job> result = jobService.getJobsPage(page, 10);
         int count = jobService.getJobCount();
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("jobs", result);
 
-        return map;
+        return new JobResponse(count, result);
     }
 
     // 按页搜索招聘信息
     @RequestMapping(value = "/jobs", params = {"search", "page" }, method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> searchJobs(@RequestParam String search, @RequestParam int page) {
+    public JobResponse searchJobs(@RequestParam String search, @RequestParam int page) {
         
         List<Job> result = jobService.searchJobs(search, page, 10);
         int count = jobService.getSearchCount(search);
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("jobs", result);
-
-        return map;
+        
+        return new JobResponse(count, result);
     }
 
     // 获取招聘信息详情

@@ -1,8 +1,6 @@
 package cn.ljlin233.introduce.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.ljlin233.util.auth.*;
-
 import cn.ljlin233.introduce.entity.Achievement;
+import cn.ljlin233.introduce.entity.AchievementResponse;
 import cn.ljlin233.introduce.service.AchievementService;
+import cn.ljlin233.util.auth.AdminAuth;
+import cn.ljlin233.util.auth.MyselfAuth;
+import cn.ljlin233.util.auth.RootAuth;
+import cn.ljlin233.util.auth.TeacherAuth;
 
 
 /**
@@ -54,43 +55,33 @@ public class AchievementController {
     @RootAuth
     @RequestMapping(value = "/achievements", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getAllAchievements() {
+    public AchievementResponse getAllAchievements() {
         List<Achievement> all = achievementService.getAllAchievements();
         int count = achievementService.getAchievementCount();
 
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("achievements", all);
-
-        return map;
+        return new AchievementResponse(count, all);
     }
 
     // 按页获取所有资源
     @RequestMapping(value = "/achievements", params = "page", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getAchievementsPage(@RequestParam int page) {
+    public AchievementResponse getAchievementsPage(@RequestParam int page) {
 
         List<Achievement> result = achievementService.getAchievementsPage(page, 10);
         int count = achievementService.getAchievementCount();
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("achievements", result);
 
-        return map;
+        return new AchievementResponse(count, result);
     }
 
     // 按页搜索资源
     @RequestMapping(value = "/achievements", params = {"search", "page" }, method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> searchAchievements(@RequestParam String search, @RequestParam int page) {
+    public AchievementResponse searchAchievements(@RequestParam String search, @RequestParam int page) {
         
         List<Achievement> result = achievementService.searchAchievements(search, page, 10);
         int count = achievementService.getSearchCount(search);
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("achievements", result);
 
-        return map;
+        return new AchievementResponse(count, result);
     }
 
     // 获取资源详情

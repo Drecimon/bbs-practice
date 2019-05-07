@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ljlin233.introduce.entity.Department;
+import cn.ljlin233.introduce.entity.DepartmentResponse;
 import cn.ljlin233.introduce.entity.Member;
+import cn.ljlin233.introduce.entity.MemberResponse;
 import cn.ljlin233.introduce.service.DepartmentService;
 import cn.ljlin233.util.auth.AdminAuth;
 import cn.ljlin233.util.auth.RootAuth;
@@ -55,33 +57,23 @@ public class DepartmentController {
     @RootAuth
     @RequestMapping(value = "/departments", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getAllDepartments() {
+    public DepartmentResponse getAllDepartments() {
         
         List<Department> all = departmentService.getAllDepartments();
         int count = departmentService.getDepartmentCount();
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("departments", all);
-
-        return result;
+        return new DepartmentResponse(count, all);
     }
 
     // 按页获取所有部门
     @RequestMapping(value = "/departments", params = "page", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getDepartmentsByPage(@RequestParam int page) {
+    public DepartmentResponse getDepartmentsByPage(@RequestParam int page) {
         
         List<Department> all = departmentService.getDepartmentsPage(page, 10);
         int count = departmentService.getDepartmentCount();
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("departments", all);
-
-        return result;
+        return new DepartmentResponse(count, all);
     }
 
     // 获取部门详情
@@ -96,33 +88,23 @@ public class DepartmentController {
     // 搜索部门
     @RequestMapping(value = "/departments", params = {"search", "page"}, method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> searchDepartments(@RequestParam String search, @RequestParam int page) {
+    public DepartmentResponse searchDepartments(@RequestParam String search, @RequestParam int page) {
         
         List<Department> all = departmentService.searchDepartments(search, page, 10);
         int count = departmentService.getSearchCount(search);
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("departments", all);
-
-        return result;
+        return new DepartmentResponse(count, all);
     }
 
     // 部门成员列表
     @RequestMapping(value = "/members", params = {"departmentId", "page"}, method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> searchDepartments(@RequestParam int departmentId, @RequestParam int page) {
+    public MemberResponse searchDepartments(@RequestParam int departmentId, @RequestParam int page) {
         
         List<Member> all = departmentService.getDepartmentMember(departmentId, page, 10);
         int count = departmentService.getMembersCount(departmentId);
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("members", all);
-
-        return result;
+        return new MemberResponse(count, all);
     }
 
 

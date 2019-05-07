@@ -1,8 +1,6 @@
 package cn.ljlin233.introduce.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.ljlin233.util.auth.*;
 import cn.ljlin233.introduce.entity.Award;
+import cn.ljlin233.introduce.entity.AwardResponse;
 import cn.ljlin233.introduce.service.AwardService;
+import cn.ljlin233.util.auth.AdminAuth;
+import cn.ljlin233.util.auth.MyselfAuth;
+import cn.ljlin233.util.auth.RootAuth;
+import cn.ljlin233.util.auth.TeacherAuth;
 
 /**
  * AwardController
@@ -51,47 +53,33 @@ public class AwardController {
     @RootAuth
     @RequestMapping(value = "/awards", method = RequestMethod.GET )
     @ResponseBody
-    public Map<Object, Object> getAllAwards() {
+    public AwardResponse getAllAwards() {
         List<Award> all = awardService.getAllAwards();
         int count = awardService.getAwardCount();
 
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("awards", all);
-
-        return map;
+        return new AwardResponse(count, all);
     }
 
     // 按页获取奖项
     @RequestMapping(value = "/awards", params = "page", method = RequestMethod.GET )
     @ResponseBody
-    public Map<Object, Object> getAwardsByPage(@RequestParam String page) {
-        Integer pageInt = Integer.valueOf(page);
+    public AwardResponse getAwardsByPage(@RequestParam int page) {
 
-        List<Award> result = awardService.getAwardsPage(pageInt, 10);
+        List<Award> result = awardService.getAwardsPage(page, 10);
         int count = awardService.getAwardCount();
 
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("awards", result);
-
-        return map;
+        return new AwardResponse(count, result);
     }
 
     // 按页搜索奖项
     @RequestMapping(value = "/awards", params = {"search", "page"}, method = RequestMethod.GET )
     @ResponseBody
-    public Map<Object, Object> searchAwards(@RequestParam String search, @RequestParam String page) {
-        Integer pageInt = Integer.valueOf(page);
+    public AwardResponse searchAwards(@RequestParam String search, @RequestParam int page) {
 
-        List<Award> result = awardService.searchAwards(search, pageInt, 10);
+        List<Award> result = awardService.searchAwards(search, page, 10);
         int count = awardService.getSearchCount(search);
 
-        Map<Object, Object> map = new HashMap<>();
-        map.put("totalCount", count);
-        map.put("awards", result);
-
-        return map;
+        return new AwardResponse(count, result);
     }
 
     // 获取资源详情

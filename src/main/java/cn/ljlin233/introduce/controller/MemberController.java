@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ljlin233.introduce.entity.Member;
+import cn.ljlin233.introduce.entity.MemberResponse;
 import cn.ljlin233.introduce.service.MemberService;
 import cn.ljlin233.util.auth.AdminAuth;
 import cn.ljlin233.util.auth.RootAuth;
@@ -39,30 +40,20 @@ public class MemberController {
 
     @RequestMapping(value = "/members", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getAllMembers() {
+    public MemberResponse getAllMembers() {
         List<Member> all = memberService.getAllMembers();
         int count = memberService.getAllMembersCounts();
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("members", all);
-
-        return result;
+        return new MemberResponse(count, all);
     }
 
     @RequestMapping(value = "/members", params = "page", method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> getMembersByPage(@RequestParam int page) {
+    public MemberResponse getMembersByPage(@RequestParam int page) {
         List<Member> all = memberService.getAllMembersByPage(page, 10);
         int count = memberService.getAllMembersCounts();
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("members", all);
-
-        return result;
+        return new MemberResponse(count, all);
     }
 
 
@@ -76,16 +67,11 @@ public class MemberController {
 
     @RequestMapping(value = "/members", params = {"search", "page"}, method = RequestMethod.GET)
     @ResponseBody
-    public Map<Object, Object> searchMembers(@RequestParam String search ,@RequestParam int page) {
+    public MemberResponse searchMembers(@RequestParam String search ,@RequestParam int page) {
         List<Member> all = memberService.searchMembersByName(search, page, 10);
         int count = memberService.getSearchCounts(search);
 
-        Map<Object, Object> result = new HashMap<>();
-
-        result.put("totalCount", count);
-        result.put("members", all);
-
-        return result;
+        return new MemberResponse(count, all);
     }
 
 
