@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import cn.ljlin233.config.ConfigParameters;
+import cn.ljlin233.util.myutil.Configure;
+
 /**
  * DataSourceConfig
  */
@@ -19,11 +20,13 @@ public class DataSourceConfig {
     @Bean
     public ComboPooledDataSource dataSource() {
         ComboPooledDataSource ds = new ComboPooledDataSource();
+        Configure config = new Configure("properties/jdbc.properties");
+
         try {
             ds.setDriverClass("com.mysql.cj.jdbc.Driver");
-            ds.setJdbcUrl("jdbc:mysql://localhost:3306/hdu_laboratory?serverTimezone=GMT%2B8");
-            ds.setUser(ConfigParameters.mysqlUsername);
-            ds.setPassword(ConfigParameters.mysqlPassword);
+            ds.setJdbcUrl(config.getValue("mysqlConnectionURL"));
+            ds.setUser(config.getValue("mysqlUsername"));
+            ds.setPassword(config.getValue("mysqlPassword"));
             ds.setInitialPoolSize(3);
             ds.setMaxPoolSize(10);
             ds.setMinPoolSize(3);
@@ -33,7 +36,6 @@ public class DataSourceConfig {
         }
         return ds;
     }    
-
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean(ComboPooledDataSource dataSource ) {

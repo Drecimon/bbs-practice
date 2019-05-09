@@ -8,9 +8,9 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.ljlin233.config.ConfigParameters;
 import cn.ljlin233.util.exception.entity.DataCheckedException;
 import cn.ljlin233.util.exception.entity.SystemException;
+import cn.ljlin233.util.myutil.Configure;
 import cn.ljlin233.util.wangeditor.entity.ImageUpload;
 import cn.ljlin233.util.wangeditor.service.ImageUploadService;
 
@@ -21,6 +21,8 @@ import cn.ljlin233.util.wangeditor.service.ImageUploadService;
 public class ImageUploadServiceImpl implements ImageUploadService {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+
+    private String basePath = new Configure("properties/wangEditor.properties").getValue("imageSavaPath");
 
     public ImageUploadServiceImpl() {}
 
@@ -53,10 +55,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         // 替换文件名
         String originalFilename = imageFile.getOriginalFilename();
 
-        File path = new File(ConfigParameters.imageSavePath + getSavePath(originalFilename));
+
+        File path = new File( this.basePath + getSavePath(originalFilename));
         // 判断是否重名
         while (path.exists()) {
-            path = new File(ConfigParameters.imageSavePath + getSavePath(originalFilename));
+            path = new File( this.basePath + getSavePath(originalFilename));
         }
 
         try {
