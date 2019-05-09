@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.ljlin233.util.wangeditor.entity.ImageUpload;
+import cn.ljlin233.util.wangeditor.entity.ImageResponse;
 import cn.ljlin233.util.wangeditor.service.ImageUploadService;
 
 /**
@@ -31,9 +31,9 @@ public class ImageUploadController {
 
     @RequestMapping(value = "/editorimage", method = RequestMethod.POST)
     @ResponseBody
-    public ImageUpload imageUpload(@RequestParam("imageFiles") MultipartFile[] imageFiles) {
+    public ImageResponse imageUpload(@RequestParam("imageFiles") MultipartFile[] imageFiles) {
 
-        ImageUpload reponse = imageUploadService.saveImages(imageFiles);
+        ImageResponse reponse = imageUploadService.saveImages(imageFiles);
 
         return reponse;
 

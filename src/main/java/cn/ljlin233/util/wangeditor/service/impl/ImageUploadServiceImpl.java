@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.ljlin233.util.exception.entity.DataCheckedException;
 import cn.ljlin233.util.exception.entity.SystemException;
 import cn.ljlin233.util.myutil.Configure;
-import cn.ljlin233.util.wangeditor.entity.ImageUpload;
+import cn.ljlin233.util.wangeditor.entity.ImageResponse;
 import cn.ljlin233.util.wangeditor.service.ImageUploadService;
 
 /**
@@ -27,9 +27,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     public ImageUploadServiceImpl() {}
 
     @Override
-    public ImageUpload saveImages(MultipartFile[] imageFiles) {
+    public ImageResponse saveImages(MultipartFile[] imageFiles) {
 
-        ImageUpload reponse = new ImageUpload();
+        ImageResponse reponse = new ImageResponse();
         reponse.setErrno(0);
 
         for(MultipartFile imageFile: imageFiles) {
@@ -68,8 +68,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
             throw new SystemException("服务器存储图片失败", e.getMessage());
         }
         
+        String url = "http://47.100.114.6:8081/image/" + path.toString().substring(16);
 
-        return path.toString();
+        return url;
     }
 
     private String getSavePath(String fileName) {

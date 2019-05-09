@@ -1,6 +1,8 @@
 package cn.ljlin233.util.wangeditor.service;
 
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Files;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
+import cn.ljlin233.util.wangeditor.entity.ImageResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { RootConfig.class, WebConfig.class })
@@ -53,8 +56,9 @@ public class ImageUploadServiceTest {
 		MultipartFile[] files = new MultipartFile[1];
 		files[0] = cMultiFile;
 		//assertEquals("image/jpeg", cMultiFile.getContentType());
-        imageUploadService.saveImages(files);
-    
+		ImageResponse response =  imageUploadService.saveImages(files);
+		assertEquals("http://47.100.114.6:8081", response.getData().toString().substring(1, 25));
+		
     }
 
 }

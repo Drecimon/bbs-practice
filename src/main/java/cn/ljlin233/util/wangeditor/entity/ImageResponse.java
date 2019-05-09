@@ -6,18 +6,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ImageUpload
+ * ImageResponse
  */
 @Setter
 @Getter
-public class ImageUpload {
+public class ImageResponse {
 
     private int errno;
 
     private ArrayList<String> data;
 
 
-    public ImageUpload() {
+    public ImageResponse() {
         this.errno = 0;
         this.data = new ArrayList<>();
     }
@@ -28,7 +28,7 @@ public class ImageUpload {
 
     @Override
     public String toString() {
-        return "ImageUpload [data=" + data + ", errno=" + errno + "]";
+        return "ImageResponse [data=" + data + ", errno=" + errno + "]";
     }
     
 }
