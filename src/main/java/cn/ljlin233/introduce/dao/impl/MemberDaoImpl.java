@@ -61,4 +61,12 @@ public interface MemberDaoImpl extends MemberDao {
     @Delete("delete from intro_member where id = #{id}")
     public void deleteMember(int id);
 
+
+    @Override
+    @Select("select * from intro_member where department_id=#{id} and member_type='teacher'")
+    public List<Member> getTeacherMember(int departmentId);
+
+    @Override
+    @Select("select * from intro_member where member_id = #{memberId}")
+    public List<Member> getMembersByMemberId(int memberId);
 }

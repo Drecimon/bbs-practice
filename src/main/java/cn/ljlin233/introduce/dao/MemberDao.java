@@ -25,4 +25,8 @@ public interface MemberDao {
 
     public void deleteMember(int id);
 
+    public List<Member> getTeacherMember(int departmentId);
+
+    public List<Member> getMembersByMemberId(int memberId);
+
 }

@@ -1,5 +1,6 @@
 package cn.ljlin233.introduce.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.ljlin233.introduce.dao.ApplyDao;
 import cn.ljlin233.introduce.entity.Apply;
+import cn.ljlin233.introduce.entity.Member;
 import cn.ljlin233.introduce.service.ApplyService;
 import cn.ljlin233.introduce.service.MemberService;
+import cn.ljlin233.user.entity.UserInfo;
+import cn.ljlin233.user.service.UserInfoService;
+import cn.ljlin233.util.email.entity.ActiveEmail;
+import cn.ljlin233.util.email.service.ActiveEmailService;
 import cn.ljlin233.util.exception.entity.DataCheckedException;
 import cn.ljlin233.util.exception.entity.SystemException;
 
@@ -25,12 +31,18 @@ public class ApplyServiceImpl implements ApplyService {
 
     private MemberService memberService;
 
+    private UserInfoService userInfoService;
+
+    private ActiveEmailService activeEmailService;
+
     public ApplyServiceImpl() {}
 
     @Autowired
-    public ApplyServiceImpl(ApplyDao applyDao, MemberService memberService) {
+    public ApplyServiceImpl(ApplyDao applyDao, MemberService memberService, UserInfoService userInfoService, ActiveEmailService activeEmailService) {
         this.applyDao = applyDao;
         this.memberService = memberService;
+        this.userInfoService = userInfoService;
+        this.activeEmailService = activeEmailService;
     }
 
     @Override
@@ -46,6 +58,33 @@ public class ApplyServiceImpl implements ApplyService {
             applyDao.addApplys(apply);
         } catch (Exception e) {
             throw new SystemException("提交入部申请失败", e.getMessage());
+        }
+
+        List<Member> teachers = memberService.getTeacherMember(departmentId);
+
+        if (teachers == null || teachers.size()==0) {
+            throw new SystemException("该部门没有教师，请联系管理员", null);
+        } else {
+
+            for (Member teacher : teachers) {
+                int teacherId = teacher.getMemberId();
+                UserInfo teacherInfo = userInfoService.getUserInfo(teacherId);
+                String emailAdress = teacherInfo.getEmail();
+
+                ActiveEmail email = new ActiveEmail();
+                email.setSendFrom("杭电实验室");
+                email.setSendTo(emailAdress);
+                email.setMessage("有人申请加入部门，请处理");
+                email.setTitle("实验室成员申请通知");
+
+                try {
+                    activeEmailService.sendActiveEamil(email);
+                } catch (Exception e) {
+                    throw new SystemException("发送部门申请通知邮件失败", e.getMessage());
+                }
+
+            }
+
         }
 
     }
@@ -75,6 +114,26 @@ public class ApplyServiceImpl implements ApplyService {
 
 
     @Override
+    public List<Apply> getUnhandleApply(int userId, int page, int pageNum) {
+        int start = (page-1)*pageNum;
+        List<Apply> applies = null;
+        try {
+            List<Member> teacher = memberService.getMembersByMemberId(userId);
+            List<Integer> departments = new ArrayList<>();
+            for(Member department : teacher) {
+                departments.add(department.getDepartmentId());
+            }
+
+            applies = applyDao.getUnhandleApply(departments, start, pageNum);           
+        } catch (Exception e) {
+            throw new SystemException("获取未处理入部申请失败", e.getMessage());
+        }
+
+        return applies;
+    }
+
+
+    @Override
     public void updateApply(int id, String applyStatus) {
         Apply apply = new Apply();
         apply.setId(id);
@@ -99,7 +158,4 @@ public class ApplyServiceImpl implements ApplyService {
 
     }
 
-
-
-    
 }

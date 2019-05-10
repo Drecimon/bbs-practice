@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.jdbc.SQL;
 
 import cn.ljlin233.introduce.dao.ApplyDao;
 import cn.ljlin233.introduce.entity.Apply;
@@ -32,4 +34,32 @@ public interface ApplyDaoImpl extends ApplyDao {
     @Override
     @Select("select * from intro_apply where user_id = #{userId}")
     public List<Apply> getApplyByUserId(int userId);
+
+    @Override
+    @SelectProvider(type = ApplyDaoSQL.class, method = "selectSQL" )
+    public List<Apply> getUnhandleApply(List<Integer> departmentIds, int start, int offset);
+
+
+
+    class ApplyDaoSQL {
+
+        public String selectSQL(List<Integer> departmentIds) {
+
+            return new SQL() {{
+
+                SELECT("intro_apply");
+                for (Integer departmentId : departmentIds) {
+                    WHERE("department_id = #{departmentId}");
+                    OR();
+                }
+                
+                
+                
+            }}.toString();
+
+
+        }
+
+    }
+
 }

@@ -121,4 +121,27 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Override
+    public List<Member> getTeacherMember(int departmentId) {
+        List<Member> result = null;
+        try {
+            result = memberDao.getTeacherMember(departmentId);
+        } catch (Exception e) {
+            throw new SystemException("获取部门教师失败", e.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Member> getMembersByMemberId(int memberId) {
+        List<Member> result = null;
+        try {
+            result = memberDao.getMembersByMemberId(memberId);
+        } catch (Exception e) {
+            throw new SystemException("获取教师所在部门失败", e.getMessage());
+        }
+
+        return result;
+    }
 }

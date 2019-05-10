@@ -60,4 +60,14 @@ public class ApplyController {
         applyService.addApply(userId, username, applyType, departmentId);
     }
 
+    @StudentAuth @TeacherAuth @RootAuth @AdminAuth
+    @RequestMapping(value = "/applys/unhandle",params = "page", method = RequestMethod.GET)
+    public List<Apply> getUnhandleApply(@RequestParam int page, HttpServletRequest request) {
+        Integer userId = Integer.valueOf(request.getParameter("userId"));
+        
+        List<Apply> applies = applyService.getUnhandleApply(userId, page, 10);
+
+        return applies;
+    }
+
 }

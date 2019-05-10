@@ -17,4 +17,7 @@ public interface ApplyDao {
 
     public List<Apply> getApplyByUserId(int userId);
 
+    public List<Apply> getUnhandleApply(List<Integer> departmentIds, int start, int offset);
+
+    
 }
