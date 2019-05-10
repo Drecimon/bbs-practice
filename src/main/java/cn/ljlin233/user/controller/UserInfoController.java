@@ -43,8 +43,47 @@ public class UserInfoController {
     @ResponseBody
     public UserInfo getUserInfo(@RequestParam int id) {
         UserInfo userInfo = userInfoService.getUserInfo(id);
-        //return Integer.toString(id);
         return userInfo;
     }
+
+    @MyselfAuth(tableName = "user_info", column = "id")
+    @RequestMapping(value = {"/user"}, params = {"id"}, method = RequestMethod.PUT)
+    public void updateUserNickname(@RequestParam int id, @RequestParam String newname) {
+
+        userInfoService.updateNickname(id, newname);
+
+    }
+
+    @MyselfAuth(tableName = "user_info", column = "id")
+    @RequestMapping(value = {"/user"}, params = {"id"}, method = RequestMethod.PUT)
+    public void updateUserDescription(@RequestParam int id, @RequestParam String description) {
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setIntroduction(description);
+
+        userInfoService.updateUserInfo(userInfo);
+    }
+
+    @MyselfAuth(tableName = "user_info", column = "id")
+    @RequestMapping(value = {"/user"}, params = {"id"}, method = RequestMethod.PUT)
+    public void updateUserPicture(@RequestParam int id, @RequestParam String picture) {
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setProfilePicture(picture);
+
+        userInfoService.updateUserInfo(userInfo);
+
+    }
+
+    @MyselfAuth(tableName = "user_info", column = "id")
+    @RequestMapping(value = {"/user"}, params = {"id"}, method = RequestMethod.DELETE)
+    public void deleteUser(@RequestParam int id) {
+
+        userInfoService.deleteUser(id);
+    }
+
+
 
 }

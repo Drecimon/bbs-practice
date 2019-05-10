@@ -9,8 +9,10 @@ public interface UserInfoService {
 
     public UserInfo getUserInfo(int id);
 
-    public boolean existsAccount();
+    public void updateNickname(int userId, String newname);
 
-    public boolean existsEmail();
+    public void updateUserInfo(UserInfo userInfo);
+
+    public void deleteUser(int id);
 
 }

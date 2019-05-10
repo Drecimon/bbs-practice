@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -77,6 +78,11 @@ public interface UserInfoDaoMapper extends UserInfoDao {
     @Override
     @Select("select active from user_info where account = #{account}")
     public int isActive(String account);
+
+    @Override
+    @Update("update ${tableName} set ${colname} = #{newname} where ${idCol} = #{userId}" )
+    public void updateUsername(@Param("tableName") String tableName, @Param("nameCol") String nameCol,
+         @Param("newName") String newName, @Param("idCol") String idCol, @Param("userId") int userId);
 
     /**
      * InnerUserInfoDaoMapper

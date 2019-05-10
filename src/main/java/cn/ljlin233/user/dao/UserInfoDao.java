@@ -29,4 +29,6 @@ public interface UserInfoDao {
     public int existsPhone(String phone);
 
     public int isActive(String account);
+
+    public void updateUsername(String tableName, String nameCol, String newName, String idCol, int userId);
 }
