@@ -2,6 +2,7 @@ package cn.ljlin233.user.dao;
 
 import java.util.List;
 import cn.ljlin233.user.entity.UserInfo;
+import cn.ljlin233.util.page.Page;
 
 /**
  * UserInfoDao
@@ -14,7 +15,8 @@ public interface UserInfoDao {
 
     public void updateUserInfo(UserInfo userInfo);
 
-    public List<UserInfo> getAllUserInfo();
+    //
+    public List<UserInfo> getAllUserInfo(Page<?> page);
 
     public UserInfo getUserInfoById(int id);
     

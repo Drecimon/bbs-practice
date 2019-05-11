@@ -15,6 +15,7 @@ import org.apache.ibatis.jdbc.SQL;
 
 import cn.ljlin233.user.dao.UserInfoDao;
 import cn.ljlin233.user.entity.UserInfo;
+import cn.ljlin233.util.page.Page;
 
 /**
  * UserInfoDaoMapper
@@ -38,7 +39,8 @@ public interface UserInfoDaoMapper extends UserInfoDao {
 
 
     @Override
-    public List<UserInfo> getAllUserInfo();
+    @Select("select * from user_info")
+    public List<UserInfo> getAllUserInfo(Page<?> page);
 
 
     @Override

@@ -39,8 +39,7 @@ public interface ApplyDaoImpl extends ApplyDao {
     @SelectProvider(type = ApplyDaoSQL.class, method = "selectSQL" )
     public List<Apply> getUnhandleApply(List<Integer> departmentIds, int start, int offset);
 
-
-
+    
     class ApplyDaoSQL {
 
         public String selectSQL(List<Integer> departmentIds) {
@@ -53,11 +52,7 @@ public interface ApplyDaoImpl extends ApplyDao {
                     OR();
                 }
                 
-                
-                
             }}.toString();
-
-
         }
 
     }
