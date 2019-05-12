@@ -9,8 +9,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.jdbc.SQL;
-
 import cn.ljlin233.introduce.dao.ApplyDao;
 import cn.ljlin233.introduce.entity.Apply;
 import cn.ljlin233.util.page.Page;

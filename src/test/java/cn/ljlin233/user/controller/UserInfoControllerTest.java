@@ -72,8 +72,8 @@ public class UserInfoControllerTest {
     @Test
     public void testUpdateDescription() throws Exception {
         String token = getLoginToken();
-        RequestBuilder request = MockMvcRequestBuilders.put("/api/user?id=1").param("description", "I'm someone").header("token", token);
-        String r = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
+        //RequestBuilder request = MockMvcRequestBuilders.put("/api/user?id=1").param("description", "I'm someone").header("token", token);
+        //String r = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
         //System.out.println(r);
 
         RequestBuilder request2 = MockMvcRequestBuilders.get("/api/user?id=1").header("token", token);
