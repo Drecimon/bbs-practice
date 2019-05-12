@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ljlin233.introduce.entity.Job;
 import cn.ljlin233.introduce.entity.JobResponse;
 import cn.ljlin233.introduce.service.JobService;
+import cn.ljlin233.user.service.UserTokenService;
 import cn.ljlin233.util.auth.AdminAuth;
 import cn.ljlin233.util.auth.MyselfAuth;
 import cn.ljlin233.util.auth.RootAuth;
@@ -29,11 +30,14 @@ public class JobController {
 
     private JobService jobService;
 
+    private UserTokenService userTokenService;
+
     public JobController() {}
 
     @Autowired
-    public JobController(JobService jobService) {
+    public JobController(JobService jobService, UserTokenService userTokenService) {
         this.jobService = jobService;
+        this.userTokenService = userTokenService;
     }
 
     // 增加一个招聘信息
@@ -45,7 +49,7 @@ public class JobController {
         
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        Integer userId = Integer.valueOf(request.getParameter("userId"));
+        Integer userId = userTokenService.getUserid(request.getHeader("token"));
 
         jobService.addJob(title, content, userId);
 

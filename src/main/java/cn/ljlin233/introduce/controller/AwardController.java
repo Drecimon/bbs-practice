@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ljlin233.introduce.entity.Award;
 import cn.ljlin233.introduce.entity.AwardResponse;
 import cn.ljlin233.introduce.service.AwardService;
+import cn.ljlin233.user.service.UserTokenService;
 import cn.ljlin233.util.auth.AdminAuth;
 import cn.ljlin233.util.auth.MyselfAuth;
 import cn.ljlin233.util.auth.RootAuth;
@@ -28,11 +29,14 @@ public class AwardController {
 
     private AwardService awardService;
 
+    private UserTokenService userTokenService;
+
     public AwardController() {}
 
     @Autowired
-    public AwardController(AwardService awardService) {
+    public AwardController(AwardService awardService, UserTokenService userTokenService) {
         this.awardService = awardService;
+        this.userTokenService = userTokenService;
     }
 
     // 增加一个奖项
@@ -44,7 +48,7 @@ public class AwardController {
 
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        Integer userId = Integer.valueOf(request.getParameter("userId"));
+        Integer userId = userTokenService.getUserid(request.getHeader("token"));
 
         awardService.addAward(title, content, userId);
     }

@@ -56,7 +56,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         userToken.setUserId(userId);        
         // 获取并存储token
         String token = userTokenService.addToken(userId);
-        userToken.setUserToken(token);
+        userToken.setToken(token);
         // 获取并存储role
         List<String> role = userRoleDao.getUserRoleByUserId(userId);
         userToken.setUserRole(role);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ljlin233.introduce.entity.Achievement;
 import cn.ljlin233.introduce.entity.AchievementResponse;
 import cn.ljlin233.introduce.service.AchievementService;
+import cn.ljlin233.user.service.UserTokenService;
 import cn.ljlin233.util.auth.AdminAuth;
 import cn.ljlin233.util.auth.MyselfAuth;
 import cn.ljlin233.util.auth.RootAuth;
@@ -29,11 +30,14 @@ public class AchievementController {
 
     private AchievementService achievementService;
 
+    private UserTokenService userTokenService;
+
     public AchievementController() {}
 
     @Autowired
-    public AchievementController(AchievementService achievementService) {
+    public AchievementController(AchievementService achievementService, UserTokenService userTokenService) {
         this.achievementService = achievementService;
+        this.userTokenService = userTokenService;
     }
 
     // 增加一个资源
@@ -45,7 +49,7 @@ public class AchievementController {
         
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        Integer userId = Integer.valueOf(request.getParameter("userId"));
+        Integer userId = userTokenService.getUserid(request.getHeader("token"));
 
         achievementService.addAchievement(title, content, userId);
 

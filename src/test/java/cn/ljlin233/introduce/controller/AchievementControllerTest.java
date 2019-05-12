@@ -1,9 +1,9 @@
 package cn.ljlin233.introduce.controller;
 
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.junit.Assert.assertNotEquals;
 
+import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
-import cn.ljlin233.introduce.service.AchievementService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,34 +33,86 @@ import cn.ljlin233.introduce.service.AchievementService;
 public class AchievementControllerTest {
 
     @Autowired
-    private AchievementController achievementController;
+    WebApplicationContext ctx;
 
-    @Autowired
-    private AchievementService achievementService;
+    private MockMvc mockMvc;
+
+    @Before
+    public void beforeTest() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.ctx).build();
+    }
+
+
+    public String getLoginToken() throws Exception {
+        RequestBuilder login = MockMvcRequestBuilders.post("/api/login")
+                                                    .param("identifier", "126@qq.com")
+                                                    .param("credential", "123");
+
+        String loginResult = mockMvc.perform(login).andReturn().getResponse().getContentAsString();
+        JSONObject json = new JSONObject(loginResult);
+        String token =  json.getString("token");
+        
+        return token;
+    }
+
 
     @Test
-    public void notNull() {
-        assertNotNull(achievementController);
-        assertNotNull(achievementService);
-    }
+    public void testGetAllAchievement() throws Exception {
 
-    //@Test
-    public void testController() throws Exception {
+        String token = getLoginToken();
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/achievements").header("token", token);
+        String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
 
-        achievementService.addAchievement("title", "content", 1);
-
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(achievementController).build();
-
-        RequestBuilder request = null;
-
-        String except = "[{\"id\":9,\"title\":\"title\",\"content\":\"content\",\"upUserId\":null,\"upNickname\":null,\"upDate\":null,\"visitCount\":null}]";
-        
-        //request = MockMvcRequestBuilders.get("/api/achievements?page=1&search=title");
-        
-        request = MockMvcRequestBuilders.delete("/api/achievements?id=1");
-
-        mockMvc.perform(request).andExpect(content().string(except));
+        assertNotEquals(0, result.length());
 
     }
-    
+
+    @Test
+    public void testGetAchievementByPage() throws Exception {
+
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/achievements?page=1");
+        String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
+        //System.out.println(result);
+        assertNotEquals(0, result.length());
+
+    }
+
+
+    @Test
+    public void testGetAchievementById() throws Exception {
+
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/achievements?id=1");
+        String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
+        //System.out.println(result);
+        assertNotEquals(0, result.length());
+
+    }
+
+    @Test
+    public void testSearchAchievement() throws Exception {
+
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/achievements").param("search", "hello").param("page", "1");
+        String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
+        //System.out.println(result);
+        assertNotEquals(0, result.length());
+
+    }
+
+
+    // @Test
+    // public void testAddAchievement() throws Exception {
+
+    // }
+
+
+    @Test
+    public void updateAchievement() throws Exception {
+
+        String token = getLoginToken();
+        RequestBuilder request = MockMvcRequestBuilders.put("http://IP/api/achievements?id=1").param("content", "update content").header("token", token);
+        String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
+        System.out.println(result);
+
+    }
+
 }

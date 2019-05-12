@@ -31,6 +31,8 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
     private UserTokenService userTokenService;
 
+
+    
     @Autowired
     private UserRoleDao userRoleDao;
 
@@ -40,6 +42,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+
+        //System.out.println("\nenter Interceptor \n");
 
         boolean needAuth = false;
         boolean hasAuth = false;
@@ -51,11 +56,16 @@ public class AuthInterceptor implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
 
+        Integer userId = null;
+
         // 需要自有权限
         MyselfAuth myselfAuth = method.getAnnotation(MyselfAuth.class);
         if (myselfAuth != null && !hasAuth) {
             needAuth = true;
-            Integer userId = getUserIdByToken(token);
+
+            if (userId == null ) {
+                userId = getUserIdByToken(token);
+            }
 
             String tableName = myselfAuth.tableName();
             String column = myselfAuth.column();
@@ -76,7 +86,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         StudentAuth studentAuth = method.getAnnotation(StudentAuth.class);
         if (studentAuth != null && !hasAuth) {
             needAuth = true;
-            Integer userId = getUserIdByToken(token);
+
+            if (userId == null ) {
+                userId = getUserIdByToken(token);
+            }
+
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("student")) {
                 if (!setMessage) {
@@ -92,7 +106,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         TeacherAuth teacherAuth = method.getAnnotation(TeacherAuth.class);
         if (teacherAuth != null  && !hasAuth) {
             needAuth = true;
-            Integer userId = getUserIdByToken(token);
+            if (userId == null ) {
+                userId = getUserIdByToken(token);
+            }
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("teacher")) {
                 if (!setMessage) {
@@ -107,7 +123,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         AdminAuth adminAuth = method.getAnnotation(AdminAuth.class);
         if (adminAuth != null  && !hasAuth) {
             needAuth = true;
-            Integer userId = getUserIdByToken(token);
+            if (userId == null ) {
+                userId = getUserIdByToken(token);
+            }
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("admin")) {
                 if (!setMessage) {
@@ -122,7 +140,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         RootAuth rootAuth = method.getAnnotation(RootAuth.class);
         if (rootAuth != null  && !hasAuth ) {
             needAuth = true;
-            Integer userId = getUserIdByToken(token);
+            if (userId == null ) {
+                userId = getUserIdByToken(token);
+            }
             List<String> role = userRoleDao.getUserRoleByUserId(userId);
             if (!role.contains("root")) {
                 if (!setMessage) {
@@ -156,6 +176,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private Integer getUserIdByToken(String token) {
         // 判断是否登录
+
         if (token == null || token.length()==0) {
             throw new DataCheckedException("请先登录!");
         }
