@@ -142,6 +142,9 @@ create table if not exists intro_apply (
     PRIMARY key (`id`)
 );
 
+insert into intro_apply (user_id, username, apply_type, department_id, apply_status) values ('1', 'ha', 'student', '1', '待审核');
+insert into intro_apply (user_id, username, apply_type, department_id, apply_status) values ('1', 'ha', 'student', '2', '待审核');
+
 -- 部门介绍表
 drop table if exists intro_department;
 create table if not exists intro_department (
@@ -155,7 +158,7 @@ create table if not exists intro_department (
 
 insert into intro_department (name, description) values ('test', 'hello');
 insert into intro_member (member_id, member_type, member_name, department_id) values (1, 'student', 'tony', 1);
-
+insert into intro_member (member_id, member_type, member_name, department_id) values (4, 'teacher', 'Stark', 1);
 
 -- 招聘信息表
 drop table if exists intro_job;
