@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ljlin233.introduce.entity.Apply;
 import cn.ljlin233.introduce.service.ApplyService;
+import cn.ljlin233.user.service.UserTokenService;
 import cn.ljlin233.util.auth.AdminAuth;
 import cn.ljlin233.util.auth.MyselfAuth;
 import cn.ljlin233.util.auth.RootAuth;
@@ -27,6 +28,9 @@ import cn.ljlin233.util.auth.TeacherAuth;
 public class ApplyController {
 
     private ApplyService applyService;
+
+    @Autowired
+    private UserTokenService userTokenService;
 
     public ApplyController() {}
 
@@ -52,20 +56,28 @@ public class ApplyController {
     @StudentAuth @TeacherAuth @RootAuth @AdminAuth
     @RequestMapping(value = "/applys", method = RequestMethod.POST)
     public void addApply(HttpServletRequest request) {
-        Integer userId = Integer.valueOf(request.getParameter("userId"));
-        Integer departmentId = Integer.valueOf(request.getParameter("departmentId"));
+        Integer userId = 0;
+        Integer departmentId = 0;
+        if (request.getParameter("userId") != null) {
+           userId = Integer.valueOf(request.getParameter("userId"));
+        }
+        if (request.getParameter("departmentId") != null) {
+            departmentId = Integer.valueOf(request.getParameter("departmentId"));
+        }
         String username = request.getParameter("username");
         String applyType = request.getParameter("applyType");
 
         applyService.addApply(userId, username, applyType, departmentId);
     }
 
+
     @StudentAuth @TeacherAuth @RootAuth @AdminAuth
     @RequestMapping(value = "/applys/unhandle",params = "page", method = RequestMethod.GET)
+    @ResponseBody
     public List<Apply> getUnhandleApply(@RequestParam int page, HttpServletRequest request) {
-        Integer userId = Integer.valueOf(request.getParameter("userId"));
+        Integer userId = userTokenService.getUserid(request.getHeader("token"));
         
-        List<Apply> applies = applyService.getUnhandleApply(userId, page, 10);
+        List<Apply> applies = applyService.getUnhandleApply(userId, page);
 
         return applies;
     }

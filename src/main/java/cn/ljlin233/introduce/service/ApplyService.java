@@ -18,6 +18,6 @@ public interface ApplyService {
 
     public void updateApply(int id, String applyStatus);
 
-    public List<Apply> getUnhandleApply(int userId, int page, int pageNum);
+    public List<Apply> getUnhandleApply(int userId, int page);
 
 }

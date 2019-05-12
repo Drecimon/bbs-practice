@@ -3,6 +3,7 @@ package cn.ljlin233.introduce.dao;
 import java.util.List;
 
 import cn.ljlin233.introduce.entity.Apply;
+import cn.ljlin233.util.page.Page;
 
 /**
  * ApplyDao
@@ -17,7 +18,7 @@ public interface ApplyDao {
 
     public List<Apply> getApplyByUserId(int userId);
 
-    public List<Apply> getUnhandleApply(List<Integer> departmentIds, int start, int offset);
+    public List<Apply> getUnhandleApply(List<Integer> departmentIds, Page<?> page);
 
     
 }

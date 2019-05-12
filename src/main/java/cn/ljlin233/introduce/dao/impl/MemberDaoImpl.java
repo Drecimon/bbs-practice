@@ -64,9 +64,11 @@ public interface MemberDaoImpl extends MemberDao {
 
     @Override
     @Select("select * from intro_member where department_id=#{id} and member_type='teacher'")
+    @ResultMap(value = "memberMap")
     public List<Member> getTeacherMember(int departmentId);
 
     @Override
     @Select("select * from intro_member where member_id = #{memberId}")
+    @ResultMap(value = "memberMap")
     public List<Member> getMembersByMemberId(int memberId);
 }

@@ -1,7 +1,8 @@
-package cn.ljlin233.user.controller;
+package cn.ljlin233.introduce.controller;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+
+import java.text.MessageFormat;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -22,16 +23,16 @@ import org.springframework.web.context.WebApplicationContext;
 import cn.ljlin233.config.RootConfig;
 import cn.ljlin233.config.WebConfig;
 
-/**
- * UserInfoControllerTest
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RootConfig.class, WebConfig.class})
 @WebAppConfiguration
 @Transactional
 @Rollback(true)
-public class UserInfoControllerTest {
-
+/**
+ * ApplyControllerTest
+ */
+public class ApplyControllerTest {
 
     @Autowired
     WebApplicationContext ctx;
@@ -42,6 +43,7 @@ public class UserInfoControllerTest {
     public void beforeTest() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.ctx).build();
     }
+
 
     public String getLoginToken() throws Exception {
         RequestBuilder login = MockMvcRequestBuilders.post("/api/login")
@@ -56,33 +58,32 @@ public class UserInfoControllerTest {
     }
 
     @Test
-    public void testGetUserInfo() throws Exception{
+    public void testAddApply() throws Exception {
 
         String token = getLoginToken();
-
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/user?id=1").header("token", token);
-
+        RequestBuilder request = MockMvcRequestBuilders.post("/api/applys").header("token", token)
+                .param("userId", "1")
+                .param("departmentId", "1")
+                .param("username", "ha")
+                .param("applyType", "student");
         String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
 
-        //System.out.println(result);
-        assertNotEquals(0, result.length());
-        
+        System.out.println(result);
+
     }
 
     @Test
-    public void testUpdateDescription() throws Exception {
+    public void getUnhandleApply() throws Exception {
+
         String token = getLoginToken();
-        RequestBuilder request = MockMvcRequestBuilders.put("/api/user?id=1").param("description", "I'm someone").header("token", token);
-        String r = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
-        //System.out.println(r);
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/applys/unhandle").param("page", "1")
+                .header("token", token);
 
-        RequestBuilder request2 = MockMvcRequestBuilders.get("/api/user?id=1").header("token", token);
+        String result = mockMvc.perform(request).andReturn().getResponse().getContentAsString();
 
-        String result = mockMvc.perform(request2).andReturn().getResponse().getContentAsString();
-
-        JSONObject json = new JSONObject(result);
-        assertEquals("I'm someone", json.getString("introduction"));
+        System.out.println(result);
 
     }
+
 
 }

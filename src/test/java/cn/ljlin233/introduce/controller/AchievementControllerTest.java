@@ -99,12 +99,6 @@ public class AchievementControllerTest {
     }
 
 
-    // @Test
-    // public void testAddAchievement() throws Exception {
-
-    // }
-
-
     @Test
     public void updateAchievement() throws Exception {
 

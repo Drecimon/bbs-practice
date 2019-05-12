@@ -62,6 +62,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         try {
             userInfoDao.updateUserInfo(userInfo);
+            //System.out.println(userInfo.getIntroduction());
         } catch (Exception e) {
             throw new SystemException("更新用户信息失败", e.getMessage());
         }

@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.ljlin233.config.MailConfig;
 import cn.ljlin233.introduce.dao.ApplyDao;
 import cn.ljlin233.introduce.entity.Apply;
+import cn.ljlin233.introduce.entity.Department;
 import cn.ljlin233.introduce.entity.Member;
 import cn.ljlin233.introduce.service.ApplyService;
+import cn.ljlin233.introduce.service.DepartmentService;
 import cn.ljlin233.introduce.service.MemberService;
 import cn.ljlin233.user.entity.UserInfo;
 import cn.ljlin233.user.service.UserInfoService;
@@ -18,6 +21,7 @@ import cn.ljlin233.util.email.entity.ActiveEmail;
 import cn.ljlin233.util.email.service.ActiveEmailService;
 import cn.ljlin233.util.exception.entity.DataCheckedException;
 import cn.ljlin233.util.exception.entity.SystemException;
+import cn.ljlin233.util.page.Page;
 
 /**
  * ApplyServiceImpl
@@ -35,6 +39,9 @@ public class ApplyServiceImpl implements ApplyService {
 
     private ActiveEmailService activeEmailService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     public ApplyServiceImpl() {}
 
     @Autowired
@@ -47,6 +54,26 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void addApply(int userId, String username, String applyType, int departmentId) {
+
+        if (userId == 0) {
+            throw new DataCheckedException("userId is null");
+        }
+        if (departmentId == 0) {
+            throw new DataCheckedException("departmentId is null");
+        }
+        if (username == null || username.length() ==0 ) {
+            throw new DataCheckedException("username is null");
+        }
+        if (applyType == null || applyType.length() ==0 ) {
+            throw new DataCheckedException("applyType is null");
+        }
+
+        Department department = departmentService.getDepartmentById(departmentId);
+        if (department == null) {
+            throw new SystemException("部门不存在", null);
+        }
+
+
         Apply apply = new Apply();
         apply.setUserId(userId);
         apply.setDepartmentId(departmentId);
@@ -72,7 +99,7 @@ public class ApplyServiceImpl implements ApplyService {
                 String emailAdress = teacherInfo.getEmail();
 
                 ActiveEmail email = new ActiveEmail();
-                email.setSendFrom("杭电实验室");
+                email.setSendFrom(MailConfig.username);
                 email.setSendTo(emailAdress);
                 email.setMessage("有人申请加入部门，请处理");
                 email.setTitle("实验室成员申请通知");
@@ -114,21 +141,22 @@ public class ApplyServiceImpl implements ApplyService {
 
 
     @Override
-    public List<Apply> getUnhandleApply(int userId, int page, int pageNum) {
-        int start = (page-1)*pageNum;
+    public List<Apply> getUnhandleApply(int userId, int page) {
         List<Apply> applies = null;
+        Page<Apply> p = new Page<>();
         try {
             List<Member> teacher = memberService.getMembersByMemberId(userId);
             List<Integer> departments = new ArrayList<>();
             for(Member department : teacher) {
                 departments.add(department.getDepartmentId());
             }
+            p.setPageNo(page);
+            applies = applyDao.getUnhandleApply(departments, p);
 
-            applies = applyDao.getUnhandleApply(departments, start, pageNum);           
         } catch (Exception e) {
             throw new SystemException("获取未处理入部申请失败", e.getMessage());
         }
-
+        p.setResults(applies);
         return applies;
     }
 

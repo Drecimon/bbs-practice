@@ -61,7 +61,7 @@ public class UserInfoController {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(id);
         userInfo.setIntroduction(description);
-
+        //System.out.println(123);
         userInfoService.updateUserInfo(userInfo);
     }
 
