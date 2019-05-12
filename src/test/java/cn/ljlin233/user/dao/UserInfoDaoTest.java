@@ -1,6 +1,5 @@
 package cn.ljlin233.user.dao;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;

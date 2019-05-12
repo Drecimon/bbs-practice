@@ -30,6 +30,7 @@ public class DataSourceConfig {
             ds.setMaxPoolSize(10);
             ds.setMinPoolSize(3);
             ds.setAcquireIncrement(3);
+            ds.setMaxIdleTime(3600);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -68,7 +68,7 @@ public class PageInterceptor implements Interceptor {
             }
 
             if (rs.next()) {
-                page.setTotalRecord(rs.getInt(1));
+                page.setTotalNum(rs.getInt(1));
             }
 
             int offset = (page.getPageNo() - 1) * page.getPageSize();
