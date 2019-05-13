@@ -2,12 +2,13 @@ package cn.ljlin233.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import cn.ljlin233.util.myutil.Configure;
+
 
 /**
  * DataSourceConfig
@@ -16,16 +17,26 @@ import cn.ljlin233.util.myutil.Configure;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
+
+    @Value("${mysqlConnectionURL}")
+    private String mysqlConnectionURL;
+
+    @Value("${mysqlUsername}")
+    private String mysqlUsername;
+
+    @Value("${mysqlPassword}")
+    private String mysqlPassword;
+
+
     @Bean
     public ComboPooledDataSource dataSource() {
         ComboPooledDataSource ds = new ComboPooledDataSource();
-        Configure config = new Configure("properties/jdbc.properties");
 
         try {
             ds.setDriverClass("com.mysql.cj.jdbc.Driver");
-            ds.setJdbcUrl(config.getValue("mysqlConnectionURL"));
-            ds.setUser(config.getValue("mysqlUsername"));
-            ds.setPassword(config.getValue("mysqlPassword"));
+            ds.setJdbcUrl(this.mysqlConnectionURL);
+            ds.setUser(this.mysqlUsername);
+            ds.setPassword(this.mysqlPassword);
             ds.setInitialPoolSize(3);
             ds.setMaxPoolSize(10);
             ds.setMinPoolSize(3);

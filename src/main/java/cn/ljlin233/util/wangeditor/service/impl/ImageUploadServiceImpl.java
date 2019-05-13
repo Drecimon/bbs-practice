@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.ljlin233.util.exception.entity.DataCheckedException;
 import cn.ljlin233.util.exception.entity.SystemException;
-import cn.ljlin233.util.myutil.Configure;
 import cn.ljlin233.util.wangeditor.entity.ImageResponse;
 import cn.ljlin233.util.wangeditor.service.ImageUploadService;
 
@@ -22,7 +22,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
-    private String basePath = new Configure("properties/wangEditor.properties").getValue("imageSavaPath");
+    //private String basePath = new Configure("properties/wangEditor.properties").getValue("imageSavaPath");
+
+    @Value("${savaPath}")
+    private String basePath;
 
     public ImageUploadServiceImpl() {}
 
