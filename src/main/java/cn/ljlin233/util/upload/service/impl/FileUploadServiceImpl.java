@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import cn.ljlin233.util.upload.service.FileUploadService;
  * FileUploadServiceImpl
  */
 @Service
+@PropertySource("classpath:properties/upload.properties")
 public class FileUploadServiceImpl implements FileUploadService {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");

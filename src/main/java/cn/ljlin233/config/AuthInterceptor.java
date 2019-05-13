@@ -31,8 +31,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
     private UserTokenService userTokenService;
 
-
-    
     @Autowired
     private UserRoleDao userRoleDao;
 
