@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-
 /**
  * MailConfig
  */
@@ -28,7 +27,11 @@ public class MailConfig {
         Properties javaMailProperties = new Properties();
     	javaMailProperties.put("mail.smtp.auth", "true");
     	javaMailProperties.put("mail.smtp.starttls.enable", "true");
-    	javaMailProperties.put("mail.smtp.timeout", "5000");
+        javaMailProperties.put("mail.smtp.timeout", "5000");
+        javaMailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        javaMailProperties.put("mail.smtp.port", "465");
+        javaMailProperties.put("mail.smtp.socketFactory.port", "465");
+
         mailSender.setJavaMailProperties(javaMailProperties);
 
         return mailSender;

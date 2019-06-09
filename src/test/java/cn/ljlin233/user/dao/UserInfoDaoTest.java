@@ -44,8 +44,8 @@ public class UserInfoDaoTest {
 
         assertNotNull(result);
 
-        userInfoDao.addUserInfo("5", "1329540850@qq.com", "19260728", "12345678");
-        int id = userInfoDao.getUserIdByAccount("5");
+        userInfoDao.addUserInfo("test", "1329540850@qq.com", "19260728", "12345678");
+        int id = userInfoDao.getUserIdByAccount("test");
         System.out.println(id);
         UserInfo userInfo = userInfoDao.getUserInfoById(id);
         System.out.println(userInfo);
