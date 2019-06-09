@@ -89,7 +89,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
                     int userId = userInfoDao.getUserIdByAccount(account);
                     userInfoDao.deleteUserInfo(userId);
                     userAuthsDao.deleteAuths(userId);
-                    userRoleDao.deleteUserRole(userId);                    
+                    userRoleDao.deleteUserRole(userId);
                 } catch (Exception e) {
                     SystemException ex = new SystemException();
                     ex.setFriendMessage("数据库删除未激活用户失败");
@@ -125,7 +125,6 @@ public class UserRegisterServiceImpl implements UserRegisterService {
             ex.setMessage(e.getMessage());
             throw ex;
         }
-
 
         // 发送激活邮件
         

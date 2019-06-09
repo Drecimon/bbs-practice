@@ -1,7 +1,9 @@
 package cn.ljlin233.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -12,14 +14,21 @@ import redis.clients.jedis.JedisPoolConfig;
  * RedisConfig
  */
 @Configuration
+@PropertySource("classpath:properties/redis.properties")
 public class RedisConfig {
+
+    @Value("${redisHost}")
+    private String host;
+
+    @Value("${myredis}")
+    private String password;
 
     @Bean
     public RedisConnectionFactory redisCF() {
         JedisConnectionFactory cf = new JedisConnectionFactory();
-        cf.setHostName("127.0.0.1");
+        cf.setHostName(host);
         cf.setPort(6379);
-
+        cf.setPassword(password);
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         // 最大空闲数
         poolConfig.setMaxIdle(300);
