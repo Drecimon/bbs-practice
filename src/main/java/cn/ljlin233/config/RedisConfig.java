@@ -20,7 +20,7 @@ public class RedisConfig {
     @Value("${redisHost}")
     private String host;
 
-    @Value("${myredis}")
+    @Value("${redisPassword}")
     private String password;
 
     @Bean
