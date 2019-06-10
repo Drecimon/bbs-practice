@@ -16,10 +16,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class MailConfig {
 
     @Value("${username}")
-    public static final String username = "lvjinlin42@foxmail.com";
+    public static String username;
     
     @Value("${password}")
-    private static final String password = "thhyflnuwgzpigaa";
+    private static String password;
 
     @Bean
     public JavaMailSender mailSender() {
