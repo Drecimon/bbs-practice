@@ -2,18 +2,23 @@ package cn.ljlin233.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 /**
  * MailConfig
  */
 @Configuration
+@PropertySource("classpath:properties/mail.properties")
 public class MailConfig {
 
+    @Value("${username}")
     public static final String username = "lvjinlin42@foxmail.com";
     
+    @Value("${password}")
     private static final String password = "thhyflnuwgzpigaa";
 
     @Bean
