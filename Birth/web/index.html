@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.js"></script>
+<html lang="en">
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0/axios.js"></script>
 
@@ -8,9 +9,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
-  <script src="/Users/junjiedemac/Desktop/Birth/web/js/jquery-3.3.1.min.js"></script>
-
-  <script src="/Users/junjiedemac/Desktop/Birth/web/js/index.js"></script>
 
   <title>实验室</title>
 </head>
@@ -43,26 +41,31 @@
         <div>
           <span>Welcome</span>
 
-          <div id="test"style=" text-align:center;">
+          <div id="test" style=" text-align:center;">
             <div v-if="!login">
               账号:<br>
               <input v-model="id" type="string" name="identifier" value="126@qq.com">
               <br>
               密码:<br>
               <input v-model="key" type="string" name="credential" value="123"><br>
-              <button @click="signin" >signin</button>
+              <button @click="signin">signin</button>
               <a href="./register.html" style="margin-left: 30px;">
                 <button>signup</button>
               </a><br>
             </div>
             <div v-else style=" text-align:center;">
-              {{ userId }}<br>
-              {{userRole[userRole.length-1]}}
+              用户：{{ userId }}<br>
+              权限：{{userRole[userRole.length-1]}}<br>
+              <br>
+              <a href="./upload">上传</a><br>
+              <a href="./contrl">管理</a><br>
+              <br>
+              <button onclick="signout()">登出</button><br>
             </div>
 
           </div>
 
-          <script>
+          <script>//登陆
             var url = "http://47.100.114.6:8080/api/login"
             new Vue({
               el: '#test',
@@ -94,6 +97,11 @@
                 }
               }
             })
+
+            function signout() {
+              Vue.login = false;
+              Vue.userRole = Vue.userId = null;
+            }
           </script>
 
           <!--<input id="userid" type="text" placeholder="UserName"><br>
