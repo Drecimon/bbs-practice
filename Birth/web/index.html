@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="http://how2j.cn/study/vue.min.js"></script>
+<script src="http://how2j.cn/study/jquery.min.js"></script>
+<script src="http://how2j.cn/study/axios.min.js"></script>
 
 <head>
   <meta charset="UTF-8">
@@ -32,24 +35,76 @@
       </ul>
     </div>
 
+    <script>
+
+    </script>
     <div class="Banner">
       <div class="Banner-left">
         <img src="images/left.jpg" alt="">
         <div>
           <span>Welcome</span>
+
+          <div id="test"style=" text-align:center;">
+            <div v-if="!login">
+              账号:<br>
+              <input v-model="id" type="string" name="identifier" value="126@qq.com">
+              <br>
+              密码:<br>
+              <input v-model="key" type="string" name="credential" value="123"><br>
+              <button @click="signin" >signin</button>
+              <a href="./register.html" style="margin-left: 30px;">
+                <button>signup</button>
+              </a><br>
+            </div>
+            <div v-else style=" text-align:center;">
+              {{ userId }}<br>
+              {{userRole[userRole.length-1]}}
+            </div>
+
+          </div>
+
+          <script>
+            var url = "http://47.100.114.6:8080/api/login"
+            new Vue({
+              el: '#test',
+              data() {
+                return {
+                  id: "126@qq.com",
+                  key: "123",
+                  login: false,
+                  userId: '',
+                  userRole: 0
+                }
+              },
+              methods: {
+                async signin() {
+                  const form = new FormData();
+                  form.append('identifier', this.id);
+                  form.append('credential', this.key);
+                  // document.write("11111")
+                  const result = await axios({
+                    method: 'POST',
+                    data: form,
+                    url
+                  });
+                  this.userId = result.data.userId;
+                  this.userRole = result.data.userRole;
+                  //document.write(result)
+                  this.login = true
+                  //document.write(login)
+                }
+              }
+            })
+          </script>
+
+          <!--<input id="userid" type="text" placeholder="UserName"><br>
+          <input id="userkey"  type="text" placeholder="PassWard"><br>
+          <br>
           <div class="Login">
             <a href="./login.html" style="margin-left: 30px;">Sign in</a>
             <a href="./register.html">Sign up</a><br>
           </div>
-          <form action="http://47.100.114.6:8080/api/login" method = "post">
-            账号:<br>
-            <input type="string" name="identifier" value="126@qq.com">
-            <br>
-            密码:<br>
-            <input type="string" name="credential" value="123">
-            <br><br>
-            <input type="submit" value="Submit">
-            </form> 
+          <a href="#">Login</a>-->
         </div>
       </div>
       <div class="Banner-right">
@@ -110,7 +165,7 @@
             <li></li>
 
           </ul>
-          
+
         </div>
 
       </div>
