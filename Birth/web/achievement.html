@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成果</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
+<script type="text/javascript">
+function getAchievementnum() {
+    $.ajax({
+        url:'http://47.100.114.6:8080/api/achievements?page=1',
+    type: "get",
+        dataType: "json",
+        success: function (result) {
+          //  var totalCount=JSON.stringify(result. totalCount);
+            var totalCount=result.totalCount;
+    alert("目前共有研究成果"+totalCount+"项");
+    }
+});}
+function getAchievement() {
+    $.ajax({
+        url:'http://47.100.114.6:8080/api/achievements?page=1',
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+           //  var totalCount=JSON.stringify(result.achievements);
+          //  var totalCount=result.achievements;
+           // alert(totalCount);
+            var i;
+            var html;//用一个变量来存储json中的数据
+            var mess=data.achievements;
+            for (i = 0; i < mess.length; i++) { //用for循环遍历数组将数据存入html变量中
+                html += `<tr>
+                            <td>${mess[i].id}</td>
+                            <td>${mess[i].title}</td>
+                            <td>${mess[i].content}</td>
+                             <td>${mess[i].upUserId}</td>
+                              <td>${mess[i].upNickname}</td>
+                               <td>${mess[i].upDate}</td>
+                                <td>${mess[i].visitCount}</td>
+                        </tr>`;
+            }
+            document.getElementById("box").innerHTML += html;
+        }
+
+
+    });
+    }
+
+</script>
+
+<body>
+<div class="container">
+    <div class="contaner-top">
+        <img src="images/logo.jpg" alt="">
+        <img src="images/banner.png" class="contaner-top-img2">
+    </div>
+
+    <div class="Nav">
+        <ul>
+            <li><a href="./index.html">首页</a></li>
+            <li><a href="./Laboratory.html">实验室概况</a></li>
+            <li><a href="./Technology.html">技术平台</a></li>
+            <li><a href="./Team.html">科研团队</a></li>
+            <li><a href="./Talent.html">人才培养</a></li>
+            <li><a href="#">内部记录</a></li>
+            <li><a href="#">English</a></li>
+        </ul>
+    </div>
+
+<input id="getnum" onclick="getAchievementnum();" type="button" value="获取成果数目"class="btn-success">
+<input id="getAchi" onclick="getAchievement();" type="button" value="显示成果">
+<div>
+    <table id="box" border="1">
+        <tr>
+            <td>id</td>
+            <td>title</td>
+            <td>content</td>
+            <td>upUserId</td>
+            <td>upNickname</td>
+            <td>upDate</td>
+           <td>visitCount</td>
+
+        </tr>
+    </table>
+</div>
+</div>
+
+
+</body>
+</html>
