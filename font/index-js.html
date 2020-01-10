@@ -1,0 +1,154 @@
+<script>
+$(document).ready(function() {
+	  //表格初始化
+	  $('#table').bootstrapTable({
+		  
+		  //请求方法
+               method: 'get',
+               dataType: "json",
+                //是否显示行间隔色
+               striped: true,
+               //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）     
+               cache: false,    
+               //是否显示分页（*）  
+               pagination: true,   
+                //排序方式 
+               sortOrder: "asc",    
+               //初始化加载第一页，默认第一页
+               pageNumber:1,   
+               //每页的记录行数（*）   
+               pageSize: 10,  
+               //可供选择的每页的行数（*）    
+               pageList: [10, 25, 50, 100],
+               //这个接口需要处理bootstrap table传递的固定参数,并返回特定格式的json数据  
+               url: "/console/demo/list",
+               queryParamsType: "",
+               //默认值为 'limit',传给服务端的参数为：limit, offset, search, sort, order Else
+               ////查询参数,每次调用是会带上这个参数，可自定义                         
+               queryParams : function(params) {
+               	var searchParam = $("#searchForm").serializeJSON();
+               	searchParam.pageNum = (params.pageNumber == undefined? "1" :params.pageNumber);
+       	    	searchParam.pageSize = (params.pageSize == undefined?   "10" : params.pageSize);
+       	    	searchParam.orderBy = ( params.sort ==  undefined? "" : params.sort+ " "+  params.order);
+                   return searchParam;
+               },
+               //分页方式：client客户端分页，server服务端分页（*）
+               sidePagination: "server",
+               contextMenuTrigger:"right",//pc端 按右键弹出菜单
+               contextMenuTriggerMobile:"press",//手机端 弹出菜单，click：单击， press：长按。
+               contextMenu: '#context-menu',
+               onContextMenuItem: function(row, $el){
+                   if($el.data("item") == "edit"){
+                   	edit(row.id);
+                   } else if($el.data("item") == "delete"){
+                   	deleteAll(row.id);
+                   } else if($el.data("item") == "view"){
+                   	layutils.openDialogView('查看详情', '/console/demo/view?id=' + row.id,'900px', '700px');
+                   }
+                   
+               },
+              
+               onClickRow: function(row, $el){
+               },
+               columns: [{
+		        checkbox: true
+		       
+		    }, {
+		        field: 'name',
+		        title: '部门名称',
+		        sortable: false
+		       
+		    }, {
+		        field: 'message',
+		        title: '部门简介',
+		        sortable: false
+		    },  {
+		        field: 'image_base64',
+		        title: '图片',
+		        sortable: false
+		    },{
+		        field: 'updateDate',
+		        title: '更新时间',
+		        sortable: false
+		    },
+				   {
+                   field: 'operate',
+                   title: '操作',
+                   align: 'center',
+                   events: {
+       		        'click .view': function (e, value, row, index) {
+       		        	layutils.openDialogView('查看详情', '/console/demo/view?id=' + row.id,'800px', '450px');
+       		        },
+       		        'click .edit': function (e, value, row, index) {
+       		        	layutils.openDialog('编辑', '/console/demo/form?id=' + row.id,'800px', '500px');
+       		        },
+       		        'click .del': function (e, value, row, index) {
+       		        	deleteAll(row.id);
+       		        }
+       		    },
+                 formatter:  function operateFormatter(value, row, index) {
+                   var userIndexTpl= $("#userIndexTpl").html();
+       		       return userIndexTpl;
+       		    }
+               }]
+		
+		});
+	  
+	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端
+		  $('#table').bootstrapTable("toggleView");
+	  }
+	  
+	  $('#table').on('check.bs.table uncheck.bs.table load-success.bs.table ' +
+                'check-all.bs.table uncheck-all.bs.table', function () {
+            $('#remove').prop('disabled', ! $('#table').bootstrapTable('getSelections').length);
+            $('#edit').prop('disabled', $('#table').bootstrapTable('getSelections').length!=1);
+        });
+	  $("#search").click("click", function() {// 绑定查询按扭
+		  $('#table').bootstrapTable('refresh');
+		});
+	  $("#reset").click("click", function() {// 绑定重置按扭
+		  $("#searchForm  input").val("");
+		  $("#searchForm  select").val("");
+		  $('#table').bootstrapTable('refresh');
+		});
+	  
+	  
+	  
+});
+
+  function getIdSelections() {
+        return $.map($("#table").bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+  
+  function deleteAll(ids){
+	    if(!ids){
+	    	ids =  getIdSelections();
+	    }
+		layutils.confirm('确认要删除选中数据吗？',  function(){
+			    layutils.loading();
+               	  	$.get("/console/route/deleteByIds?ids=" +ids, function(data){
+               	  		if(data.success){
+               	  			$('#table').bootstrapTable('refresh');
+              	  			layutils.success(data.msg);
+              	  		}else{
+              	  			layutils.error(data.errorMsg)
+              	  		}
+               	  	})
+		})
+  }
+  
+  function edit(id){
+	  if(!id){
+		  id = getIdSelections();
+	  }
+	  layutils.openDialog('编辑', "/console/demo/form?id=" + id,'800px', '570px');
+	  
+  }
+</script>
+<script type="text/html" id="userIndexTpl" th:inline="javascript">
+	 <a href="#" class="view" title="查看" shiro:hasAnyPermission="ai:route:view,ai:route:update,ai:route:view,ai:route:index"><i class="fa fa-eye">查看</i> </a>&nbsp; 
+	 <a href="#" class="edit" title="修改" shiro:hasPermission="ai:route:update"  ><i class="fa fa-edit"></i>修改 </a>&nbsp; 
+	 <a href="#" class="del" title="删除" shiro:hasPermission="ai:route:del" ><i class="fa fa-trash"></i> 删除</a>&nbsp; 
+</script>

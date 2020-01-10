@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>通知详情</title>
+        <script th:replace="/index-js.html"></script>
+
+        <style>
+            #father{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 1353px;
+                margin: auto;
+            }
+            #lay_1{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 102px;
+                margin: auto;
+            }
+            #menu_left{
+                /*border: 1px solid yellow;*/
+                width: 305px;
+                height: 54px;
+                margin: auto;
+                float: left;
+            }
+            #tubiao{
+                /*border: 1px solid yellow;*/
+                width: 80px;
+                height: 84px;
+                margin: auto;
+                float: left;
+                margin-left: 23px;
+                margin-top: 9px;
+            }
+            #xiaoming{
+                /*border: 1px solid palegreen;*/
+                width: 305px;
+                height: 102px;
+                margin: auto;
+                float: left;
+                margin-left: 30px;
+
+            }
+            #xiaoming-cn{
+                /*border: 1px solid palegreen;*/
+                width: 305px;
+                height: 54px;
+                margin: auto;
+                float: left;
+                margin-left: 0px;
+                margin-top: 11px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 36px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #xiaoming-en{
+                /*border: 1px solid palegreen;*/
+                width: 305px;
+                height: 23px;
+                margin: auto;
+                margin-left: 0px;
+                margin-top: 65px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #title{
+                /*border: 1px solid palegreen;*/
+                width: 289px;
+                height: 35px;
+                margin: auto;
+                float: left;
+                margin-left: 23px;
+                margin-top: 34px;
+                color: rgba(245, 71, 133, 1);
+                font-size: 23px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #shouye{
+                /*border: 1px solid palegreen;*/
+                width: 63px;
+                height: 23px;
+                margin: auto;
+                float: left;
+                margin-left: 37px;
+                margin-top: 41px;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #tongzhigonggao{
+                /*border: 1px solid palegreen;*/
+                width: 71px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 32px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #bumenjieshao{
+                /*border: 1px solid palegreen;*/
+                width: 98px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 43px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #chengyuanjieshao{
+                /*border: 1px solid palegreen;*/
+                width: 76px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 17px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #zhaoshenxingxi{
+                /*border: 1px solid palegreen;*/
+                width: 89px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 43px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #img-gerenxingxi{
+                /*border: 1px solid palegreen;*/
+                width: 51px;
+                height: 66px;
+                margin-top: 26px;
+                margin-left: 27px;
+                float: left;
+            }
+            #lay_2{
+                /*border: 1px solid deepskyblue;*/
+                left: -1px;
+                top: 101px;
+                width: 1440px;
+                height: 164px;
+
+            }
+            #lay_3{
+                /*border: 1px solid saddlebrown;*/
+                left: -4px;
+                top: 101px;
+                width: 1441px;
+                height: 745px;
+                line-height: 20px;
+                text-align: center;
+                border: 1px solid rgba(255, 0, 0, 0);
+            }
+            #caizhengbu{
+                /*border: 1px solid saddlebrown;*/
+                margin-left: 134px;
+                margin-top: 119px;
+                width: 293px;
+                height: 54px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 36px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+                float: left;
+
+
+            }
+            #caizhengbu_right{
+                /*border: 1px solid saddlebrown;*/
+                width: 554px;
+                height: 634px;
+                border-radius: 20px;
+                margin-left: 149px;
+                float: left;
+            }
+            #caizhengbu_img{
+                /*border: 1px solid saddlebrown;*/
+                width: 554px;
+                height: 431px;
+                border-radius: 20px;
+                margin-left: 65px;
+                margin-top: 201px;
+                float: left;
+            }
+            #caizhenbu_message{
+                /*border: 1px solid saddlebrown;*/
+                width: 521px;
+                height: 259px;
+                border-radius: 20px;
+                margin-left: 0px;
+                margin-top: 13px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 20px;
+                text-align: left;
+                font-family: SourceHanSansSC-bold;
+
+            }
+            #lay_4{
+                /*border: 1px solid greenyellow;*/
+                left: -4px;
+                top: 101px;
+                width: 1441px;
+                height: 745px;
+                line-height: 20px;
+                background-color: rgba(0, 210, 212, 1);
+                text-align: center;
+                border: 1px solid rgba(255, 0, 0, 0);
+
+            }
+            #lay_button{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 217px;
+                background-image: url("imgs/main-bg.jpg");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                -moz-background-size: 100% 100%;
+                margin-top: 0px;
+                margin: 0 auto;
+
+
+            }
+            #button_1{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 50px;
+                float: left;
+                margin-top: 33px;
+            }
+            #button_2{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 24px;
+                float: left;
+
+            }
+            #button_3{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 48px;
+                float: left;
+            }
+            #button_1_img{
+                /*border: 1px solid green;*/
+                width: 50px;
+                height: 50px;
+                float: left;
+                margin-left: 257px;
+            }
+            #button_2-cn{
+                /*border: 1px solid green;*/
+                width: 241px;
+                height: 24px;
+                float: left;
+                margin-left: 162px;
+                text-align: center;
+                color: rgba(255, 255, 255, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+            }
+            #button_3-cn{
+                /*border: 1px solid green;*/
+                width: 241px;
+                height: 48px;
+                float: left;
+                margin-left: 162px;
+                color: rgba(255, 255, 255, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #member_3{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 54px;
+                margin: auto;
+                margin-top: 71px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 36px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+            }
+            #member_4{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 301px;
+                margin: auto;
+                margin-top: 102px;
+
+            }
+            #member_4_img{
+                /*border: 1px solid black;*/
+                width: 232px;
+                height: 301px;
+                float: left;
+            }
+            #member_5{
+                /*border: 1px solid deeppink;*/
+                width: 1440px;
+                height: 431px;
+                float: left;
+            }
+            #member_5_img{
+                /*border: 1px solid deeppink;*/
+                width: 554px;
+                height: 431px;
+                float: left;
+                margin-left: 82px;
+            }
+            #member_5_right{
+                /*border: 1px solid deeppink;*/
+                width: 554px;
+                height: 431px;
+                float: left;
+                margin-left: 40px;
+            }
+            #blue{
+                /*border: 1px solid deeppink;*/
+                width: 15px;
+                height: 15px;
+                float: left;
+                margin-left: 10px;
+                background: deepskyblue;
+                margin: center;
+                margin-top: 12px;
+            }
+            #member_5_right_line{
+                /*border: 1px solid deeppink;*/
+                width: 601px;
+                height: 48px;
+                float: left;
+                margin-left: 10px;
+            }
+            #member_5_right_line-cn{
+                /*border: 1px solid yellow;*/
+                width: 400px;
+                height: 24px;
+                float: left;
+                margin-left: 10px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                margin-top: 10px;
+            }
+            #member_5_right_line-data{
+                /*border: 1px solid yellow;*/
+                width: 100px;
+                height: 24px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                float: left;
+                margin-top: 10px;
+
+
+            }
+            #shangye{
+                /*border: 1px solid black;*/
+                width: 60px;
+                height: 24px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+                margin-top:10px;
+                margin-left: 10px;
+                float: left;
+
+            }
+            #yema{
+                /*border: 1px solid black;*/
+                width: 25px;
+                height: 25px;
+                line-height: 20px;
+                background-color: rgba(247, 247, 247, 1);
+                text-align: center;
+                float: left;
+                margin-top:10px;
+                margin-left: 10px;
+
+
+            }
+            #dibu{
+                /*border: 1px solid fuchsia;*/
+                width: 1439px;
+                height: 217px;
+            }
+            #notice_lay_3{
+                /*border: 1px solid yellow;*/
+                width: 1440px;
+                height: 900px;
+                margin: auto;
+            }
+            #notice_left{
+                /*border: 1px solid red;*/
+                width: 795px;
+                height: 1000px;
+                margin: auto;
+                margin-left: 86px;
+                margin-top: 81px;
+                float: left;
+            }
+            #motice_right{
+                /*border: 1px solid red;*/
+                width:  298px;
+                height: 616px;
+                margin: auto;
+                margin-left: 55px;
+                margin-top: 80px;
+                float: left;
+            }
+            #right_1{
+                /*border: 1px solid red;*/
+                width:  670px;
+                height: 42px;
+                margin: auto;
+                margin-left: 55px;
+                margin-top: 80px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 28px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #right_2{
+                /*border: 1px solid red;*/
+                margin-left: 174px;
+                left: 331px;
+                top: 455px;
+                width: 461px;
+                height: 24px;
+                color: rgba(157, 156, 156, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #right_3{
+                left: 249px;
+                top: 553px;
+                width: 612px;
+                height: 100px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                margin-left: 92px;
+
+            }
+            #right_4{
+                left: 265px;
+                top: 886px;
+                width: 574px;
+                height: 330px;
+                margin-left: 98px;
+                margin-top: 44px;
+            }
+            #right_5{
+                /*border: 1px solid black;*/
+                left: 249px;
+                top: 1270px;
+                width: 612px;
+                height: 124px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                margin-left: 92px;
+                margin-top:20px;
+
+            }
+            #right_6{
+                left: 247px;
+                top: 1444px;
+                width: 613px;
+                height: NaNpx;
+                border: 1px solid rgba(187, 187, 187, 1);
+                margin-left: 90px;
+            }
+            #right_7{
+                /*border: 1px solid black;*/
+                left: 249px;
+                top: 1270px;
+                width: 460px;
+                height: 25px;
+                margin-left: 90px;
+            }
+            #right_7_1{
+                /*border: 1px solid black;*/
+                left: 253px;
+                top: 1482px;
+                width: 20px;
+                height: 20px;
+                float: left;
+
+            }
+            #right_7_2{
+                /*border: 1px solid black;*/
+                left: 285px;
+                top: 1482px;
+                width: 431px;
+                height: 25px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 14px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #left_line{
+                /*border: 1px solid blue;*/
+                left: 1056px;
+                top: 372px;
+                width: 298px;
+                height: 24px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                margin-top: 27px;
+
+            }
+            #left_line_1{
+                left: 1027px;
+                top: 377px;
+                width: 15px;
+                height: 15px;
+                line-height: 20px;
+                background-color: rgba(0, 210, 212, 1);
+                text-align: center;
+                border: 1px solid rgba(255, 0, 0, 0);
+                margin-left: 20px;
+                float: left;
+                margin-top: 4px;
+            }
+            #left_line_2{
+                /*border: 1px solid red;*/
+                width: 461px;
+                height: 24px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                margin-left: 49px;
+
+            }
+        </style>
+        <link href="style.css">
+    </head>
+    <body>
+        <div id="father">
+            <div id="lay_1">
+                <div id="tubiao">
+                    <img width=100% height=100% src="imgs/school-logo.png" >
+                </div>
+                <div id="xiaoming">
+                    <div id="xiaoming-cn">杭州电子科技大学</div>
+                    <div id="xiaoming-en">Hangzhou Dianzi University</div>
+                </div>
+                <div id="title">计算机实验室</div>
+                <div id="shouye">首页</div>
+                <div id="tongzhigonggao">通知公告</div>
+                <div id="bumenjieshao">部门介绍</div>
+                <div id="chengyuanjieshao">成员介绍</div>
+                <div id="zhaoshenxingxi">招生信息</div>
+                <div id="img-gerenxingxi">
+                    <img width=100% height=100% src="imgs/yonghu.png" >
+                </div>
+            </div>
+            <div id="lay_2">
+                <img width=100% height=100% src="imgs/03_2.png" >
+            </div>
+            <div id="notice_lay_3">
+                <div id="notice_left">
+                    <div id="right_1">我校举行2019世界IT青年科学家论坛</div>
+                    <div id="right_2">作者：风清扬    上传时间：2019-09-10    点击量：233</div>
+                    <div id="right_3">         4月2日，2019世界IT青年科学家论坛在我校下沙校区开幕，来自美洲、欧洲、大洋洲、亚洲地区的82位青年科学家济济一堂。此次论坛由我校与湖州市南浔区人民政府主办、浙江省专家与留学人员服务中心协办。</div>
+                    <div id="right_3">副院长卡留斌·谢尔盖教授，省特级专家严密教授，省委组织部人才办副主任黄勤乐，省教育厅教师工作处处长庄华洁，省外国专家局副局长张红卫、副处级调研员张晓娜，省专家与留学人员服务中心副主任王薇，南浔区人大常委会副主任李雪华、组织部副部长吴博文，我校校长朱泽飞，校党委副书记朱斌，副校长郑宁、吴卿，相关学院和部门负责人、教师代表等参加论坛，论坛由郑宁主持。</div>
+                    <div id="right_4">
+                        <img src="imgs/news.jpg"width=100% height=100% >
+                    </div>
+                    <div id="right_5">        本次论坛为期四天，除大会报告外，另设人工智能、智能计算与数据科学、电子信息等8个分论坛。与会青年学者与我校学科带头人、优秀青年教师共同探讨学术前沿问题，分享研究成果，还饶有兴趣地参观了我校重点实验室，与相关学院教师进行了广泛交流。</div>
+                    <div id="right_6"></div>
+                    <div id="right_7">
+                        <div id="right_7_1">
+                            <img src="imgs/wenjian.png"width="100%"height="100%">
+                        </div>
+                        <div id="right_7_2">关于公布学校管理服务部门职责的通知 杭电人【2019】 85号.pdf</div>
+
+                    </div>
+                    <div id="right_7">
+                        <div id="right_7_1">
+                            <img src="imgs/wenjian.png"width="100%"height="100%">
+                        </div>
+                        <div id="right_7_2">落实计划生育.pdf</div>
+
+                    </div>
+                </div>
+                <div id="motice_right">
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">学术报告：THz for Smart ... </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">学术报告：THz for Smart ... </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">讲座：脑机接口在康复与辅... </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">学术讲座：统计方法前沿研究 </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">院士讲座：创新是科学的灵魂  </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">高雅艺术进校园——中国爱... </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">学术讲座：统计方法前沿研究  </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">院士讲座：创新是科学的灵魂  </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">学术讲座：统计方法前沿研究  </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">学术报告：THz for Smart ... </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">院士讲座：创新是科学的灵魂  </div>
+                    </div>
+                    <div id="left_line">
+                        <div id="left_line_1"></div>
+                        <div id="left_line_2">高雅艺术进校园——中国爱...  </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="lay_button">
+            <div id="button_1">
+                <div id="button_1_img" >
+                    <img src="imgs/headImg.jpg"width="100%"height="100%">
+                </div>
+                <div id="button_1_img"style="margin-left: 400px">
+                    <img src="imgs/headImg02.jpg"width="100%"height="100%">
+                </div>
+                <div id="button_1_img"style="margin-left: 400px">
+                    <img src="imgs/headimg03.jpg"width="100%"height="100%">
+                </div>
+            </div>
+            <div id="button_2">
+                <div id="button_2-cn" >地址</div>
+                <div id="button_2-cn"style="margin-left: 205px">邮箱</div>
+                <div id="button_2-cn"style="margin-left: 205px">电话</div>
+            </div>
+            <div id="button_3">
+                <div id="button_3-cn">杭州市杭州经济技术开发区白杨街道2号大街1158号</div>
+                <div id="button_3-cn"style="margin-left: 205px">897735684@qq.com.com</div>
+                <div id="button_3-cn"style="margin-left: 205px">0751-66655651</div>
+            </div>
+        </div>
+
+    </body>
+</html>

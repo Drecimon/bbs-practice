@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>通知</title>
+        <script th:replace="/index-js.html"></script>
+        <style>
+            #father{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 900px;
+                margin: auto;
+            }
+            #lay_1{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 102px;
+                margin: auto;
+            }
+            #menu_left{
+                /*border: 1px solid yellow;*/
+                width: 305px;
+                height: 54px;
+                margin: auto;
+                float: left;
+            }
+            #tubiao{
+                /*border: 1px solid yellow;*/
+                width: 80px;
+                height: 84px;
+                margin: auto;
+                float: left;
+                margin-left: 23px;
+                margin-top: 9px;
+            }
+            #xiaoming{
+                /*border: 1px solid palegreen;*/
+                width: 305px;
+                height: 102px;
+                margin: auto;
+                float: left;
+                margin-left: 30px;
+
+            }
+            #xiaoming-cn{
+                /*border: 1px solid palegreen;*/
+                width: 305px;
+                height: 54px;
+                margin: auto;
+                float: left;
+                margin-left: 0px;
+                margin-top: 11px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 36px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #xiaoming-en{
+                /*border: 1px solid palegreen;*/
+                width: 305px;
+                height: 23px;
+                margin: auto;
+                margin-left: 0px;
+                margin-top: 65px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #title{
+                /*border: 1px solid palegreen;*/
+                width: 289px;
+                height: 35px;
+                margin: auto;
+                float: left;
+                margin-left: 23px;
+                margin-top: 34px;
+                color: rgba(245, 71, 133, 1);
+                font-size: 23px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #shouye{
+                /*border: 1px solid palegreen;*/
+                width: 63px;
+                height: 23px;
+                margin: auto;
+                float: left;
+                margin-left: 37px;
+                margin-top: 41px;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #tongzhigonggao{
+                /*border: 1px solid palegreen;*/
+                width: 71px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 32px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #bumenjieshao{
+                /*border: 1px solid palegreen;*/
+                width: 98px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 43px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #chengyuanjieshao{
+                /*border: 1px solid palegreen;*/
+                width: 76px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 17px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #zhaoshenxingxi{
+                /*border: 1px solid palegreen;*/
+                width: 89px;
+                height: 23px;
+                margin-top: 41px;
+                margin-left: 43px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 15px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+            }
+            #img-gerenxingxi{
+                /*border: 1px solid palegreen;*/
+                width: 51px;
+                height: 66px;
+                margin-top: 26px;
+                margin-left: 27px;
+                float: left;
+            }
+            #lay_2{
+                /*border: 1px solid deepskyblue;*/
+                left: -1px;
+                top: 101px;
+                width: 1440px;
+                height: 164px;
+
+            }
+            #lay_3{
+                /*border: 1px solid saddlebrown;*/
+                left: -4px;
+                top: 101px;
+                width: 1441px;
+                height: 745px;
+                line-height: 20px;
+                text-align: center;
+                border: 1px solid rgba(255, 0, 0, 0);
+            }
+            #caizhengbu{
+                /*border: 1px solid saddlebrown;*/
+                margin-left: 134px;
+                margin-top: 119px;
+                width: 293px;
+                height: 54px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 36px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+                float: left;
+
+
+            }
+            #caizhengbu_right{
+                /*border: 1px solid saddlebrown;*/
+                width: 554px;
+                height: 634px;
+                border-radius: 20px;
+                margin-left: 149px;
+                float: left;
+            }
+            #caizhengbu_img{
+                /*border: 1px solid saddlebrown;*/
+                width: 554px;
+                height: 431px;
+                border-radius: 20px;
+                margin-left: 65px;
+                margin-top: 201px;
+                float: left;
+            }
+            #caizhenbu_message{
+                /*border: 1px solid saddlebrown;*/
+                width: 521px;
+                height: 259px;
+                border-radius: 20px;
+                margin-left: 0px;
+                margin-top: 13px;
+                float: left;
+                color: rgba(0, 0, 0, 1);
+                font-size: 20px;
+                text-align: left;
+                font-family: SourceHanSansSC-bold;
+
+            }
+            #lay_4{
+                /*border: 1px solid greenyellow;*/
+                left: -4px;
+                top: 101px;
+                width: 1441px;
+                height: 745px;
+                line-height: 20px;
+                background-color: rgba(0, 210, 212, 1);
+                text-align: center;
+                border: 1px solid rgba(255, 0, 0, 0);
+
+            }
+            #lay_button{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1440px;
+                height: 217px;
+                background-image: url("imgs/main-bg.jpg");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                -moz-background-size: 100% 100%;
+                margin-top: 0px;
+                margin-left: 100px;
+                margin: 0 auto;
+
+
+            }
+            #button_1{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 50px;
+                float: left;
+                margin-top: 33px;
+            }
+            #button_2{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 24px;
+                float: left;
+
+            }
+            #button_3{
+                /*border: 1px solid red;*/
+                left: -4px;
+                top: 101px;
+                width: 1439px;
+                height: 48px;
+                float: left;
+            }
+            #button_1_img{
+                /*border: 1px solid green;*/
+                width: 50px;
+                height: 50px;
+                float: left;
+                margin-left: 257px;
+            }
+            #button_2-cn{
+                /*border: 1px solid green;*/
+                width: 241px;
+                height: 24px;
+                float: left;
+                margin-left: 162px;
+                text-align: center;
+                color: rgba(255, 255, 255, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+            }
+            #button_3-cn{
+                /*border: 1px solid green;*/
+                width: 241px;
+                height: 48px;
+                float: left;
+                margin-left: 162px;
+                color: rgba(255, 255, 255, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+
+            }
+            #member_3{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 54px;
+                margin: auto;
+                margin-top: 71px;
+                color: rgba(0, 59, 144, 1);
+                font-size: 36px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+            }
+            #member_4{
+                /*border: 1px solid red;*/
+                width: 1440px;
+                height: 301px;
+                margin: auto;
+                margin-top: 102px;
+
+            }
+            #member_4_img{
+                /*border: 1px solid black;*/
+                width: 232px;
+                height: 301px;
+                float: left;
+            }
+            #member_5{
+                /*border: 1px solid deeppink;*/
+                width: 1440px;
+                height: 431px;
+                float: left;
+            }
+            #member_5_img{
+                /*border: 1px solid deeppink;*/
+                width: 554px;
+                height: 431px;
+                float: left;
+                margin-left: 82px;
+            }
+            #member_5_right{
+                /*border: 1px solid deeppink;*/
+                width: 554px;
+                height: 431px;
+                float: left;
+                margin-left: 40px;
+            }
+            #blue{
+                border: 1px solid deeppink;
+                width: 15px;
+                height: 15px;
+                float: left;
+                margin-left: 10px;
+                background: deepskyblue;
+                margin: center;
+                margin-top: 12px;
+            }
+            #member_5_right_line{
+                /*border: 1px solid deeppink;*/
+                width: 601px;
+                height: 48px;
+                float: left;
+                margin-left: 10px;
+            }
+            #member_5_right_line-cn{
+                /*border: 1px solid yellow;*/
+                width: 400px;
+                height: 24px;
+                float: left;
+                margin-left: 10px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                margin-top: 10px;
+            }
+            #member_5_right_line-data{
+                /*border: 1px solid yellow;*/
+                width: 100px;
+                height: 24px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: left;
+                font-family: SourceHanSansSC-regular;
+                float: left;
+                margin-top: 10px;
+
+
+            }
+            #shangye{
+                border: 1px solid black;
+                width: 60px;
+                height: 24px;
+                color: rgba(16, 16, 16, 1);
+                font-size: 16px;
+                text-align: center;
+                font-family: SourceHanSansSC-regular;
+                margin-top:10px;
+                margin-left: 10px;
+                float: left;
+
+            }
+            #yema{
+                border: 1px solid black;
+                width: 25px;
+                height: 25px;
+                line-height: 20px;
+                background-color: rgba(247, 247, 247, 1);
+                text-align: center;
+                float: left;
+                margin-top:10px;
+                margin-left: 10px;
+
+
+            }
+            #dibu{
+                /*border: 1px solid fuchsia;*/
+                width: 1439px;
+                height: 217px;
+            }
+        </style>
+        <link href="style.css">
+    </head>
+    <body>
+        <div id="father">
+            <div id="lay_1">
+                <div id="tubiao">
+                    <img width=100% height=100% src="imgs/school-logo.png" >
+                </div>
+                <div id="xiaoming">
+                    <div id="xiaoming-cn">杭州电子科技大学</div>
+                    <div id="xiaoming-en">Hangzhou Dianzi University</div>
+                </div>
+                <div id="title">计算机实验室</div>
+                <div id="shouye">首页</div>
+                <div id="tongzhigonggao">通知公告</div>
+                <div id="bumenjieshao">部门介绍</div>
+                <div id="chengyuanjieshao">成员介绍</div>
+                <div id="zhaoshenxingxi">招生信息</div>
+                <div id="img-gerenxingxi">
+                    <img width=100% height=100% src="imgs/yonghu.png" >
+                </div>
+            </div>
+            <div id="lay_2">
+                <img width=100% height=100% src="imgs/03_2.png" >
+            </div>
+            <div id="member_3">通知公告</div>
+            <div id="member_5">
+                <div id="member_5_img">
+                    <img src="imgs/11.jpg" width="100%"height="100%">
+                </div>
+                <div id="member_5_right">
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">动态系统运行安全性评估理论与方法</div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">学术报告：THz for Smart and Safe Future: a special... </div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">讲座：脑机接口在康复与辅助系统中的应用 </div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">学术讲座：统计方法前沿研究 </div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">院士讲座：创新是科学的灵魂 </div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">高雅艺术进校园——中国爱乐乐团来校演出 </div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="blue"></div>
+                        <div id="member_5_right_line-cn">学术交流与科研评价的现状与挑战（Scholarly commo... </div>
+                        <div id="member_5_right_line-data">2019-09-12</div>
+                    </div>
+                    <div id="member_5_right_line">
+                        <div id="shangye" style="margin-left: 120px">上一页</div>
+                        <div id="yema">1</div>
+                        <div id="yema">2</div>
+                        <div id="yema">3</div>
+                        <div id="yema">4</div>
+                        <div id="shangye">下一页</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="lay_button">
+            <div id="button_1">
+                <div id="button_1_img" >
+                    <img src="imgs/headImg.jpg"width="100%"height="100%">
+                </div>
+                <div id="button_1_img"style="margin-left: 400px">
+                    <img src="imgs/headImg02.jpg"width="100%"height="100%">
+                </div>
+                <div id="button_1_img"style="margin-left: 400px">
+                    <img src="imgs/headimg03.jpg"width="100%"height="100%">
+                </div>
+            </div>
+            <div id="button_2">
+                <div id="button_2-cn" >地址</div>
+                <div id="button_2-cn"style="margin-left: 205px">邮箱</div>
+                <div id="button_2-cn"style="margin-left: 205px">电话</div>
+            </div>
+            <div id="button_3">
+                <div id="button_3-cn">杭州市杭州经济技术开发区白杨街道2号大街1158号</div>
+                <div id="button_3-cn"style="margin-left: 205px">897735684@qq.com.com</div>
+                <div id="button_3-cn"style="margin-left: 205px">0751-66655651</div>
+            </div>
+        </div>
+
+    </body>
+</html>

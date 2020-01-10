@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<title>用户管理</title>
+<meta http-equiv="Expires" content="0">
+<!-- 通用头文件（含树的表单） -->
+<script th:replace="/include/treetable-list-header"></script>
+
+<script th:replace="/include/compent/datetimepicker"></script>
+<!-- 业务关联的JS -->
+<script th:replace="/index-js.html"></script>
+</head>
+<body>
+	<div class="wrapper wrapper-content">
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				<div class="row">
+					 
+					<div class="col-sm-12 col-md-12 col-xs-12 animated">
+						<!-- 搜索框-->
+						<div class="accordion-group">
+							<div id="collapseTwo" class="accordion-body">
+								<div class="accordion-inner">
+									<form id="searchForm" class="form form-horizontal well clearfix">
+										<div class="row">
+											<div class="col-xs-3 col-sm-3 col-md-3">
+												<label class="label-item single-overflow pull-left" title="研究成果">研究成果：</label> <input type="text"
+													name="loginName" maxlength="30" class=" form-control" />
+											</div>
+											<div class="col-xs-3 col-sm-3 col-md-3">
+												<label class="label-item single-overflow pull-left" title="研究主题">研究主题：</label> <input type="text" name="no"
+													maxlength="20" class=" form-control" />
+											</div>
+											<div class="col-xs-3 col-sm-3 col-md-3">
+												<label class="label-item single-overflow pull-left" title="创建时间：">创建时间：</label> <input type="text" name="name"
+													maxlength="20" class=" form-control" />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-xs-3 col-sm-3 col-md-3">
+												<div style="margin-top: 10px ">
+													<a id="search" class="btn btn-primary btn-rounded  btn-bordered btn-sm"><i class="fa fa-search"></i> 查询</a>
+													<a id="reset" class="btn btn-primary btn-rounded  btn-bordered btn-sm"><i class="fa fa-refresh"></i> 重置</a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- 搜索框结束 -->
+						<!-- 工具栏 -->
+						<div id="toolbar">
+						 <a shiro:hasPermission="ai:route:exit" id="add" class="btn btn-primary"
+								onclick="layutils.openDialog('exit', '/console/demo/exit','800px', '570px')"><i
+								class="glyphicon glyphicon-plus"></i> 退出编辑模式</a>
+					 
+							<button shiro:hasPermission="ai:route:update"  id="edit" class="btn btn-success" disabled onclick="edit()">
+								<i class="glyphicon glyphicon-edit"></i> 添加部门
+							</button>
+							<button shiro:hasPermission="ai:route:del" id="remove" class="btn btn-danger" disabled onclick="deleteAll()">
+								<i class="glyphicon glyphicon-remove"></i> 删除删除部门
+							</button>
+						</div>
+						<!-- 工具栏结束 -->
+						<!-- 表格 -->
+						<table id="table" data-toolbar="#toolbar" data-show-refresh="true" data-show-toggle="true"
+							data-show-columns="true" data-show-export="true" data-minimum-count-columns="1" data-id-field="id">
+						</table>
+						<!-- context menu -->
+						<ul id="context-menu" class="dropdown-menu">
+						    <li data-item="view" shiro:hasAnyPermission="ai:route:view,ai:route:update,ai:route:add,ai:route:del" ><a>查看详细</a></li>
+							<li data-item="edit"  shiro:hasPermission="ai:route::update"   ><a>编辑</a></li>
+							<li data-item="delete" shiro:hasPermission="ai:route:del" ><a>删除</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
